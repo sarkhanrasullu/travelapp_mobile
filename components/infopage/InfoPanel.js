@@ -1,0 +1,82 @@
+import React, { Component } from "react";
+import { StyleSheet, Image } from "react-native";
+import { View, Text } from "native-base";
+import RaitingLabel from "./RaitingLabel";
+
+class InfoPanel extends Component {
+  state = {
+    readMore: false
+  };
+
+  render() {
+    const {info, avatarThumbnail, avatarTitle, reviewAvg, reviewCount} = this.props;
+    let description = info;
+    let readMoreButton = null;
+
+    if (!this.state.readMore && info && info.length > 180) {
+      description = info.substring(0, 180);
+      readMoreButton = (
+        <Text style={{ color: theme.colors.active,fontSize:15 }} onPress={() => { this.setState({ readMore: true }); }} >
+          {" Read more"}
+        </Text>
+      );
+    }
+
+    return (
+      <View style={[styles.flex]}>
+        <View style={[styles.flex, styles.contentHeader]}>
+          <Image style={[styles.avatar, styles.shadow]} source={{ uri: `data:image/jpg;base64,${avatarThumbnail}` }} />
+          <Text style={styles.title}>{avatarTitle}</Text>
+          <RaitingLabel reviewAvg={reviewAvg} reviewCount={reviewCount}/>
+          <Text style={styles.description}>
+            {description}
+            {readMoreButton}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+}
+
+export default InfoPanel;
+
+
+const styles = StyleSheet.create({
+    flex: {
+      flex: 0
+    },
+    contentHeader: {
+      backgroundColor: "transparent",
+      padding: theme.sizes.padding,
+      backgroundColor: theme.colors.white,
+      borderTopLeftRadius: theme.sizes.radius,
+      borderTopRightRadius: theme.sizes.radius,
+      marginTop: -theme.sizes.padding / 2
+    },
+    avatar: {
+      position: "absolute",
+      top: -theme.sizes.margin,
+      right: theme.sizes.margin,
+      width: theme.sizes.padding * 2,
+      height: theme.sizes.padding * 2,
+      borderRadius: theme.sizes.padding
+    },
+    shadow: {
+      shadowColor: theme.colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 6
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: 5
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: "bold"
+    },
+    description: {
+      fontSize: 15,
+      lineHeight: 15,
+      color: theme.colors.caption
+    }
+  });

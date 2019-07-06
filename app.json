@@ -1,0 +1,39 @@
+{
+  "name": "TravelApp",
+  "displayname": "TravelAppDisplay",
+  "expo": {
+    "name": "TravelApp",
+    "slug": "travelapp",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/icon.png",
+    "splash": {
+      "image": "./assets/icons/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier":"com.company.travelapp"
+    },
+    "android": {
+      "package": "com.company.travelapp",
+      "versionCode":1,
+      "permissions": [],
+      "icon" :"./assets/icons/icon.png"
+    },
+    "description": ""
+  }
+}
