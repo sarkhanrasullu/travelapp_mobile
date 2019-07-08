@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import Modal from "react-native-modal";
-import { StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
-import MapView, { AnimatedRegion, Marker } from 'react-native-maps';
-import {Text} from 'native-base';
-// import {MapView, Marker} from 'expo';
-import UIButton from '../ui/UIButton';
+import { StyleSheet, Dimensions } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import * as stateUtil from '../../api/StateUtil'
 const width = Dimensions.get("window").width*0.80;
 class MapPicker extends Component {
 
@@ -14,22 +11,26 @@ class MapPicker extends Component {
   }
 
   componentWillMount(){
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          initialRegion: position.coords
+      let currentValue = stateUtil.get(this);
+      if(currentValue){
+        this.setState({initialRegion: currentValue});
+      }else{
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.setState({
+            initialRegion: position.coords
+          });
         });
-      })
+      } 
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('will recieve props');
-    console.log(nextProps);
-  }
+  onDragEnd = ()=>{
+    const newLoc = this.marker.props.coordinate;
+    const newLL = {
+      latitude: newLoc.latitude,
+      longitude: newLoc.longitude 
+    }
 
-  onDragEnd = (e)=>{
-    console.log('pressed');
-    console.log(this.marker.coordinate);
-    this.setState({val:e});
+    this.setState({val:newLL});
   }
 
   marker = null;
@@ -43,6 +44,8 @@ class MapPicker extends Component {
            coordinate={this.state.initialRegion}
        />
     }
+
+    const { placeholder, error, readOnly } = this.props;
     return (
                 <MapView
                 //initialRegion={this.state.val}
