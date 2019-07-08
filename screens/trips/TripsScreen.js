@@ -1,6 +1,5 @@
 import React from 'react';
 import TripList from './TripList'
-import TripReport from './TripReport';
 import TabsWrapper from '../../components/tab/TabsWrapper';
 import Api from '../../api/Api';
 import { connect } from 'react-redux';

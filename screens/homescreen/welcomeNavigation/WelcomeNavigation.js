@@ -30,7 +30,7 @@ class WelcomeNavigation extends Component {
                     images={[images.image4]}  />
                 </ViewRow>
                 <ViewRow>
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"5. Securely Pay"} base64
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"5. Pay by cash"} base64
                     images={[images.image5]}  />
                      <ThumbnailText fontSize={10} width={80} height={80} text={"6. You are DONE!"} base64
                     images={[images.image6]}  />

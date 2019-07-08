@@ -102,7 +102,7 @@ class BookDetails extends Component {
     const iconTime = <FontAwesome size={17} name="calendar" style={styles.icon}/>
 
     let items = [
-      {name:"pickupCoords",label:"Pick-up Place", icon:iconPlace},
+      {name:"pickupCoords",label:"Pick-up Place", icon:iconPlace, type:"mappicker"},
       {name:"pickupTime",label:"Pick-up Time", icon:iconTime},
     ];
 

@@ -38,11 +38,11 @@ class ProgressNavigation extends Component {
     }
 
     handleContactInfo = ()=>{
-        const {selectedDriver, selectedGuide} = this.props;
-         if(selectedDriver|| selectedGuide)
+        // const {selectedDriver, selectedGuide} = this.props;
+        //  if(selectedDriver|| selectedGuide)
             this.switchTo('BookSummary')
-         else 
-            alert("Please choose driver or guide");
+        //  else 
+        //     alert("Please choose driver or guide");
         
     } 
 

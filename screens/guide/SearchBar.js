@@ -169,7 +169,7 @@ hideCalendar = (date) => {
                               placeholderTextColor={validation.date?"red":"#000"}
                               defaultValue={CommonUtil.formatDate(selectedDate)} />
                 </Item>
-                <LanguagePicker error={validation.language}/>
+                <LanguagePicker/>
                 <Item style={{ backgroundColor: inputBg, width:"32%" }}>
                   <MaterialCommunityIcons
                     style={{ marginLeft: 4 }}

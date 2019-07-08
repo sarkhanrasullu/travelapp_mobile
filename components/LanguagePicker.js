@@ -47,7 +47,7 @@ class LanguagePicker extends Component {
 
 const moduleState = state => ({
     selectedDate: state.entities.selectedDate,
-    selectedLanguage: state.entities.selectedLanguage,
+    selectedLanguage: state.guides.selectedLanguage,
     languages: state.languages.list
   });
   
