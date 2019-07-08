@@ -20,6 +20,6 @@ export default class ReviewWarning extends Component {
 
 const styles = StyleSheet.create({
     warningMessage : {
-      color: "red"
+      color: "green"
     },
   });

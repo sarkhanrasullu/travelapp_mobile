@@ -5,13 +5,12 @@ import {
   FlatList
 } from 'react-native';
 import Trip from './Trip';
-import { List, Text, View } from 'native-base';
+import { List } from 'native-base';
 
 import { connect } from 'react-redux';
 import { setTrips } from '../../modules/trips';
 import { setLoading } from '../../modules/loading';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import Api from '../../api/Api';
 
 class TripList extends React.Component {
   static navigationOptions = {
@@ -41,7 +40,7 @@ class TripList extends React.Component {
   }
 
   render() {
-    console.log('this.props.isLoading='+this.props.isLoading);
+    //console.log('this.props.isLoading='+this.props.isLoading);
     
     return (
       <SafeAreaView style={styles.container}>

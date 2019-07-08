@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
-import { View } from "native-base";
 import * as StateUtil from '../../api/StateUtil';
 import FormInput from '../FormInput';
 import FormSection from '../../components/FormSection';
 import { setLoggedInUser } from "../../modules/auth";
 import { setLoading } from "../../modules/loading";
 import { connect } from "react-redux";
+
+import { Dimensions } from 'react-native'
+import { View, Text } from 'native-base';
+import UIButton from '../ui/UIButton';
+const window = Dimensions.get("window");
+const contentWidth = window.width*0.90;
 
 class DynamicForm extends Component {
 
@@ -39,16 +44,35 @@ class DynamicForm extends Component {
          }
        })
     })
-    console.log(validation);
+    //console.log(validation);
     state.validation = validation;
     component.setState(state);
     return result;
 }
 
   render() {
+     const {handleSubmit, submitLabel,header, footer} = this.props;
+
       return (
-            <View style={styles.section}>
+            <View style={[styles.section,{width:contentWidth, alignSelf:"center", alignItems:"center",}]}>
+                 {header}
                  {this.getFormItems()}
+                 {
+                   (handleSubmit && submitLabel)||footer?
+                      <View style={{ alignItems:"center",justifyContent:"space-between",width:200, paddingTop:15, paddingBottom:15}}>
+                            <Text style={{color:"red"}}>{this.props.errorMessage}</Text>
+                            {
+                             (handleSubmit && submitLabel)? <UIButton onPress={handleSubmit} text={submitLabel}/>:null
+                            }
+                            {
+                              footer?<View style={{paddingTop:15}}>
+                                {footer}
+                                </View>:null
+                            }
+                      </View>:null
+                 }
+
+
             </View>
     );
   }

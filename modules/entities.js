@@ -20,7 +20,6 @@ const INITIAL_STATE = {
   selectedGuide: null,
   selectedDestination: null,
   selectedDate: null,
-  timeSlots: [],
   trip: {},
   target: {}
 };
@@ -68,9 +67,7 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
         ...state,
         trip: INITIAL_STATE.trip,
         selectedDriver: INITIAL_STATE.selectedDriver,
-        selectedGuide: INITIAL_STATE.selectedGuide,
-        selectedDestination: INITIAL_STATE.selectedDestination,
-        selectedDate: INITIAL_STATE.selectedDate,
+        selectedGuide: INITIAL_STATE.selectedGuide
       };
     case RESET_GUIDE_DRIVER:
       return {

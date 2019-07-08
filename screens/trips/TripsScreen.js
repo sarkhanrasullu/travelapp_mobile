@@ -17,12 +17,10 @@ class TripsScreen extends React.Component {
     shouldComponentUpdate(){
       const { navigation } = this.props;
       const update = navigation.getParam("update");
-      console.log('update=');
-      console.log(update);
-      console.log('update=');
       if(update){
         Api.loadTrips(this, 1);
       }
+      return true;
     }
 
 

@@ -64,7 +64,7 @@ class SearchBar extends Component {
   checkAndShow = (yesCallback, cancelCallback)=>{
     setTimeout(
       ()=>{
-          console.log('checkand show in')
+          //console.log('checkand show in')
           Alert.alert("Warning","Notice that your changes will reset your previous selected guide and driver",[
             this.yesButton(yesCallback), this.cancelButton(cancelCallback)
           ])

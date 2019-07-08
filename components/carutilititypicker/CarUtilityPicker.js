@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import CheckBoxList from "./../CheckBoxList";
 import Api from '../../api/Api';
-export default class CarUtilityPicker extends Component {
+import {setLoading} from '../../modules/loading';
+import {connect} from 'react-redux';
 
+class CarUtilityPicker extends Component {
      
-    componentDidMount(){
+    componentWillMount(){
         const {component} = this.props;
         Api.loadCarUtilities(component)
     }
@@ -19,3 +21,8 @@ export default class CarUtilityPicker extends Component {
         )
     }
 }
+
+const actions = {
+    setLoading
+}
+export default connect(null, actions)(CarUtilityPicker);

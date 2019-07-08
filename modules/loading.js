@@ -25,6 +25,7 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
 
 // Actions
 export function setLoading(loading, errorMessage, successMessage) {
+  //console.log('loading='+loading);
   return dispatch => {
     dispatch({
       type: SET_LOADING,

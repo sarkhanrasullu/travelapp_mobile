@@ -63,7 +63,6 @@ export default class Api {
         .then((responseJson) => {
           if(responseJson.access_token && responseJson.access_token.length>0){
             Api.token = responseJson.access_token;
-            if(spinner===true) component.props.setLoading(false);
             Api.getLoggedInUser(component, redirectSettings, callback);
             
           } else {
@@ -75,26 +74,26 @@ export default class Api {
         });
 }
 
- 
   static getLoggedInUser = (component, redirectSettings=true, callback)=>{
-    console.log('getLoggedInUser')
+    ////console.log('getLoggedInUser')
     const u = {...component.state.target};
     fetch(`${Settings.ip}/users/loggedinuser`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              console.log('getLoggedInUser 2='+responseJson.result.id)
+              ////console.log('getLoggedInUser 2='+responseJson.result.id)
               if(responseJson && responseJson.result && responseJson.result.id>0){
                 responseJson.result.token = Api.token;
-                console.log('getLoggedInUser 3='+redirectSettings);
+                ////console.log('getLoggedInUser 3='+redirectSettings);
                 responseJson.result.password = u.password;
                 component.props.setLoggedInUser(responseJson.result);
                 if(redirectSettings){
-                console.log('getLoggedInUser 4')
+                ////console.log('getLoggedInUser 4')
                   component.props.navigation.navigate('Settings');
                 }
                 if(callback){
                   callback();
                 } 
+                component.props.setLoading(false);
               }else{
                 component.props.setLoading(false, 'invalid email or password');
               }
@@ -106,23 +105,81 @@ export default class Api {
   static handleDriverRegister = (component) => {
     const { props } = component;
     const driver =  component.state.target;
-    console.log('component.state.validate()=');
-    console.log(component.state.validate());
     if(!component.state.validate()){
       return;
     }
     driver.busyDays = null;
     Api.refreshCarUtilities(component);
-    console.log('Api.POST_HEADER(driver) begin');
-    console.log(Api.POST_HEADER(driver));
-    console.log('Api.POST_HEADER(driver) end');
-    props.setLoading(true, null, null);
+    props.setLoading(true);
 
     fetch(`${Settings.ip}/drivers/edit`, Api.POST_HEADER(driver))
       .then(response => response.json())
       .then(responseJson => { 
-        console.log(responseJson);
-        props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
+        Api.loadDriver(component);
+      })
+      .catch(error => {
+        props.setLoading(false, error);
+      });
+  };
+
+  static handleSendForgotKey = (component) => {
+    const { props } = component;
+    if(!component.state.validate()){
+      return;
+    }
+    console.log(component.state.target);
+    props.setLoading(true);
+
+    fetch(`${Settings.ip}/users/sendforgotkey`, Api.POST_HEADER(component.state.target))
+      .then(response => response.json())
+      .then(responseJson => { 
+        props.setLoading(false, responseJson.errorMessage);
+        if(responseJson.code===1){
+          props.navigation.navigate('VerifyEmail',{prevTarget: component.state.target});
+        }
+      })
+      .catch(error => {
+        props.setLoading(false, error);
+      });
+  };
+
+  static handleVerifyEmail = (component) => {
+    const { props } = component;
+    if(!component.state.validate()){
+      return;
+    }
+    console.log(component.state.target);
+    props.setLoading(true);
+
+    fetch(`${Settings.ip}/users/verifyemail`, Api.POST_HEADER(component.state.target))
+      .then(response => response.json())
+      .then(responseJson => { 
+        props.setLoading(false, responseJson.errorMessage);
+        if(responseJson.code===1){
+          props.navigation.navigate('ResetPassword', {prevTarget: component.state.target});
+        }
+      })
+      .catch(error => {
+        props.setLoading(false, error);
+      });
+  };
+
+  static handleResetPassword = (component) => {
+    const { props } = component;
+    if(!component.state.validate()){
+      return;
+    }
+
+    console.log(component.state.target);
+    props.setLoading(true);
+
+    fetch(`${Settings.ip}/users/resetpassword`, Api.POST_HEADER(component.state.target))
+      .then(response => response.json())
+      .then(responseJson => { 
+        props.setLoading(false, responseJson.errorMessage);
+        if(responseJson.code===1){
+          Api.handleLogin(component);
+        }
       })
       .catch(error => {
         props.setLoading(false, error);
@@ -138,7 +195,7 @@ export default class Api {
     fetch(`${Settings.ip}/cars`, Api.POST_HEADER(driver.carList[0]))
       .then(response => response.json())
       .then(responseJson => { 
-        // console.log(responseJson)
+        // ////console.log(responseJson)
         props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
       })
       .catch(error => {
@@ -153,14 +210,11 @@ export default class Api {
     const guide = state.target;
     guide.busyDays = null;
     props.setLoading(true);
-    console.log("Api.POST_HEADER(guide) begin");
-    console.log(Api.POST_HEADER(guide));
-    console.log("Api.POST_HEADER(guide) end");
     
     fetch(`${Settings.ip}/guides`, Api.POST_HEADER(guide))
       .then(response => response.json())
       .then(responseJson => { 
-        props.setLoading(false, Api.getErrorMessage(responseJson), 'Successfully registered. We are reviewing your request.');
+        Api.loadGuide(component, ()=>props.setLoading(false));
       })
       .catch(error => {
         props.setLoading(false, error);
@@ -173,15 +227,15 @@ export default class Api {
     const state = {...component.state};
     if(!state.validate()) return;
     const {target} = state;
-    console.log(Api.POST_HEADER(target))
+    ////console.log(Api.POST_HEADER(target))
     props.setLoading(true);
     fetch(`${Settings.ip}/users`, Api.POST_HEADER(target))
       .then(response => response.json())
       .then(responseJson => { 
         //props.setLoading(false, Api.getErrorMessage(responseJson));
        // props.setLoggedInUser(target);
-        Api.handleLogin(component,false, ()=>props.setLoading(false),false,false);
         props.navigation.goBack();
+        Api.handleLogin(component,false, ()=>props.setLoading(false),false,false);
       })
       .catch(error => {
         props.setLoading(false, error);
@@ -243,7 +297,9 @@ export default class Api {
 
 
 
-  static loadDriver = (component)=> {
+  static loadDriver = (component, callback)=> {
+    ////console.log('load driver');
+        
         fetch(`${Settings.ip}/drivers/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
@@ -261,31 +317,27 @@ export default class Api {
                     })
                 }
                 driver.busyDays = busyDays;
-                
-
                 Api.checkUtilities(component, driver);
-
                 Api.loadBrands(component);
-                
-
                 component.setState({target: driver});
+
+                if(callback) callback();
               }
+              component.props.setLoading(false);
             })
             .catch((error) => {
             });
        }
   
 
-  static loadGuide = (component)=> {
+  static loadGuide = (component, callback)=> {
         const props = component.props;
-        // const u = props.loggedInUser;
-        // if(u===null) return;
         props.setLoading(true);
         
         fetch(`${Settings.ip}/guides/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              console.log(responseJson);
+              ////console.log(responseJson);
               const guide = responseJson.result;
               if(guide){
                 const busyDays = [];
@@ -299,7 +351,7 @@ export default class Api {
                 }
                 guide.busyDays = busyDays;
                 component.setState({target: guide});
-                //Api.checkUtilities(component);
+                if(callback) callback();
               }
               props.setLoading(false);
             })
@@ -309,6 +361,7 @@ export default class Api {
        }
 
   static loadCarUtilities = (component)=>{
+    ////console.log('load car utilities');
     fetch(`${Settings.ip}/carUtilities`, Api.GET_HEADER())
         .then((response) => response.json())
         .then((responseJson) => {
@@ -316,7 +369,7 @@ export default class Api {
           if(list){
             component.setState({carUtilities: list});
           }
-          Api.loadDriver(component);
+          Api.loadDriver(component,()=>component.props.setLoading(false));
         })
         .catch((error) => {
         });
@@ -459,7 +512,7 @@ export default class Api {
     '&languageId='+CommonUtil.cleanData(selectedLanguage)+
     '&genderId='+CommonUtil.cleanData(selectedGender);
 
-    console.log(url);
+    ////console.log(url);
     props.setLoading(true);
       fetch(url, {
         method: 'GET',
@@ -533,18 +586,20 @@ export default class Api {
       .then(response => response.json())
       .then(responseJson => { 
         if(!loggedInUser){
-          console.log('login');
-          component.props.resetTrip();
-          Api.handleLogin(component, false, ()=>{component.handleSuccess()}, false);
-          props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
+          ////console.log('login');
+          
+          Api.handleLogin(component, false, ()=>{
+            component.handleSuccess();
+            component.props.resetTrip();
+          }, false);
         }else{
           component.handleSuccess();
           props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
         }
       })
       .catch(error => {
-        console.log('error trip');
-        console.log(error);
+        ////console.log('error trip');
+        ////console.log(error);
         props.setLoading(false, error);
       });
   };
@@ -572,7 +627,7 @@ export default class Api {
           Api.handleLogin(component);
         })
         .catch((error) => {
-          console.log(error);
+          ////console.log(error);
           component.props.setLoading(false);
         });
   }

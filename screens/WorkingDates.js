@@ -45,7 +45,7 @@ class WorkingDates extends Component {
   generateCustomDatesStyles = ()=>{
       const state= this.state;
       const busyDays = state[this.props.entityName].busyDays;
-      // console.log(busyDays);
+      // //console.log(busyDays);
       const customDatesStyles = busyDays.map((busyDay, index)=> {
         return { date: new Date(busyDay), style: {backgroundColor: 'red'}}
       });

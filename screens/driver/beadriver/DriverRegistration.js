@@ -30,9 +30,12 @@ class DriverRegistration extends Component {
     validate: null
   }
 
-  componentWillMount(){
+  componentDidMount(){
+    this.props.setLoading(true);
+    //Api.loadDriver(this, ()=>this.props.setLoading(false));
     Api.loadBrands(this);
   }
+
   render() {
     if (this.props.isLoading) {
       return <LoadingSpinner />;
@@ -66,7 +69,7 @@ class DriverRegistration extends Component {
                         type: "imagepicker"
                       },
                       {
-                        name: "driverLicenseFront",
+                        name: "driverLicenseBack",
                         optional:true,
                         label: "Select Back",
                         type: "imagepicker"

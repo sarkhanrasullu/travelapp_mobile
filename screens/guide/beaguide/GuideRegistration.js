@@ -33,8 +33,8 @@ class GuideRegistration extends Component {
   };
 
   componentDidMount(){
-    Api.loadGuide(this);
     Api.loadLanguages(this);
+    Api.loadGuide(this);
   }
 
   findLanguage = (id) => {

@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Container, Content, Footer } from 'native-base';
 import { StyleSheet, Dimensions } from 'react-native'
 import * as theme from '../../../../theme'
-import UIButton from '../../../../components/ui/UIButton';
 import LinkText from '../../../../components/ui/LinkText';
-import GmailButton from '../../../../components/ui/socialbuttons/GmailButton';
-import FacebookButton from '../../../../components/ui/socialbuttons/FacebookButton';
 import Api from '../../../../api/Api'
 import { setLoggedInUser } from '../../../../modules/auth';
 import {setLoading} from '../../../../modules/loading'
@@ -25,10 +22,6 @@ class Login extends Component {
       validate:null
     }
 
-    componentDidMount(){
-      if(this.props.loggedInUser) navigation.navigate('Settings');
-    }
-
     handleLogin = ()=>{
       if(this.state.validate()){
         Api.handleLogin(this);
@@ -44,11 +37,12 @@ class Login extends Component {
         return (
             <Container>
                 <Content>
-                    <View style={{width:contentWidth, alignSelf:"center",
-                     alignItems:"center", marginTop:15}}>
-                        <Text style={{fontWeight:"600", margin:10}}>Already have an account?</Text>
                         <DynamicForm
                             component={this}
+                            handleSubmit={this.handleLogin}
+                            submitLabel={"Login"}
+                            header={<Text style={{fontWeight:"600", margin:10}}>Already have an account?</Text>}
+                            footer={<LinkText text={"Forgot Password?"} to={"SendForgotKey"}/>}
                             sections={
                              [
                               {
@@ -59,15 +53,6 @@ class Login extends Component {
                               }
                              ] 
                             }/>
-                        <View style={{ alignItems:"center",justifyContent:"space-between",width:200, paddingTop:15, paddingBottom:15}}>
-                            <LinkText text={"Forgot Password?"}/>
-                            <Text style={{color:"red"}}>{this.props.errorMessage}</Text>
-                            <UIButton onPress={this.handleLogin} text={"Login"}/>
-                            {/* <Text>or</Text>
-                            <GmailButton/>
-                            <FacebookButton/> */}
-                        </View>
-                    </View>
                 </Content>
                 <Footer style={{height:footerHeight, backgroundColor:"#CCC"}}>
                     <View style={{width:contentWidth, alignItems:"center", marginTop:10}}>

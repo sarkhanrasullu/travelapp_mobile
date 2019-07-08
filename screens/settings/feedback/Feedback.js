@@ -32,8 +32,8 @@ class Feedback extends Component {
       
       const {text} = this.state;
       const data = {text: text};
-      console.log(this.state);
-      console.log(data);
+      //console.log(this.state);
+      //console.log(data);
        fetch(`${Settings.ip}/feedbacks`, {
         method: 'POST',
         headers: {

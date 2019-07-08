@@ -25,8 +25,8 @@ class GetHelp extends Component {
       this.setState({isLoading: true});
       const {text, email} = this.state;
       const data = {text: text, email: email};
-      console.log(this.state);
-      console.log(data);
+      //console.log(this.state);
+      //console.log(data);
       fetch(`${Settings.ip}/helps`, {
         method: 'POST',
         headers: {

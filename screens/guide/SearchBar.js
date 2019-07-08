@@ -65,7 +65,7 @@ cancelButton =(callback)=> {
 checkAndShow = (yesCallback, cancelCallback)=>{
   setTimeout(
     ()=>{
-        console.log('checkand show in')
+        //console.log('checkand show in')
         Alert.alert("Warning","Notice that your changes will reset your previous selected guide and driver",[
           this.yesButton(yesCallback), this.cancelButton(cancelCallback)
         ])
@@ -133,8 +133,8 @@ hideCalendar = (date) => {
     const inputBg = "#7fc7ff";
     const {validation} = this.state;
     const { selectedGender, selectedDate } = this.props;
-    console.log('selectedGender='+selectedGender);
-    console.log(selectedGender);
+    //console.log('selectedGender='+selectedGender);
+    //console.log(selectedGender);
     return (
       <View
         style={{
@@ -180,7 +180,7 @@ hideCalendar = (date) => {
                     placeholderStyle={{color: "#000" }}
                     style={{ height: 30 }}
                     onValueChange={value => {
-                      console.log(value);
+                      //console.log(value);
                       this.props.setGender(value);
                     }}
                     selectedValue={selectedGender}

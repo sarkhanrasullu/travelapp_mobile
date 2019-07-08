@@ -21,6 +21,9 @@ import EditProfile from '../screens/settings/loginregister/EditProfile';
 import HomeScreen from '../screens/homescreen/HomeScreen';
 import PaymentWindow from '../screens/payment/PaymentWindow';
 import BookResult from '../screens/book/BookResult';
+import VerifyEmail from '../screens/settings/loginregister/forgotpassword/VerifyEmail';
+import ResetPassword from '../screens/settings/loginregister/forgotpassword/ResetPassword';
+import SendForgotKey from '../screens/settings/loginregister/forgotpassword/SendForgotKey';
 
 export default createStackNavigator({
 
@@ -147,6 +150,26 @@ export default createStackNavigator({
     navigationOptions: {
       title: "Trip Success"
     }
+  },
+  SendForgotKey: {
+    screen: SendForgotKey,
+    navigationOptions: {
+      title: "Send Verification Code"
+    }
+  },
+  VerifyEmail: {
+    screen: VerifyEmail,
+    navigationOptions: {
+      title: "Verify Email"
+    }
+  },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      title: "Reset Password"
+    }
   }
+
+  
 });
 
