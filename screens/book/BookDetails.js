@@ -101,10 +101,7 @@ class BookDetails extends Component {
     const iconPlace = <Icon.Ionicons name={"ios-pin"} size={20} style={styles.icon} />
     const iconTime = <FontAwesome size={17} name="calendar" style={styles.icon}/>
 
-    let items = [
-      {name:"pickupCoords",label:"Pick-up Place", icon:iconPlace, type:"mappicker"},
-      {name:"pickupTime",label:"Pick-up Time", icon:iconTime},
-    ];
+    let items = [];
 
     if(!this.props.loggedInUser){
       items = items.concat(
@@ -116,9 +113,13 @@ class BookDetails extends Component {
         {name:"userId.password",      label:"Password", secure: true}]);
     }
 
-        return (
-        <Section 
-              body={
+    items = items.concat(
+      {name:"pickupTime",label:"Pick-up Time", icon:iconTime},
+      {name:"pickupCoords",label:"Pick-up Place", icon:iconPlace, type:"mappicker"}
+    )
+
+    return (
+        <Section body = {
                   <DynamicForm 
                   component={this.props.component} 
                   readOnly={this.props.readOnly} 

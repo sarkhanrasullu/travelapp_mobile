@@ -54,12 +54,12 @@ class Trip extends React.Component {
                   <Text style={{ marginLeft: 4}}>{trip.pickupDate+" "+trip.pickupTime}</Text>
                 </View>
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', }}>
+              {/* <View style={{ flex: 1, flexDirection: 'row', }}>
                 <View style={styles.tripInfo}>
                 <Text style={{ marginLeft: 4, fontWeight: 'bold'}}>Location:</Text>
                   <Text style={{ marginLeft: 4}}>{trip.pickupCoords}</Text>
                 </View>
-              </View>
+              </View> */}
             </View>
             {/* <View style={{ flex: 0.2, justifyContent: 'center' }}>
               <SimpleLineIcons name="options-vertical" color="#A5A5A5" size={24} />

@@ -7,13 +7,14 @@ class MapPicker extends Component {
 
   state = {
     initialRegion: null,//{latitude:null, longitude:null},
-    val:null
   }
+
+  marker = null;
 
   componentWillMount(){
       let currentValue = stateUtil.get(this);
-      if(currentValue){
-        this.setState({initialRegion: currentValue});
+      if(currentValue && currentValue.trim().length>0){
+        this.setState({initialRegion: JSON.parse(currentValue.trim())});
       }else{
         navigator.geolocation.getCurrentPosition((position) => {
           this.setState({
@@ -25,40 +26,34 @@ class MapPicker extends Component {
 
   onDragEnd = ()=>{
     const newLoc = this.marker.props.coordinate;
-    const newLL = {
-      latitude: newLoc.latitude,
-      longitude: newLoc.longitude 
-    }
+    // const newLL = {
+    //   latitude: newLoc.latitude,
+    //   longitude: newLoc.longitude 
+    // }
 
-    this.setState({val:newLL});
+    // console.log(JSON.stringify(newLL));
+
+    stateUtil.handleFieldChange(this, JSON.stringify(newLoc));
   }
 
-  marker = null;
-
   render() {
+    const { error, readOnly } = this.props;
     if(this.state.initialRegion){
      this.marker = <Marker
            title={"Pick me up here!"}
-           draggable
+           draggable={!readOnly}
            onDragEnd={()=>this.onDragEnd()}
            coordinate={this.state.initialRegion}
        />
     }
 
-    const { placeholder, error, readOnly } = this.props;
     return (
                 <MapView
                 //initialRegion={this.state.val}
-                    style={styles.container}
+                    style={[styles.container,  error ? styles.errorInput:null]}
                     showsUserLocation
-                    // onRegionChange={(e)=>this.handleMapPress(e)}
                     followsUserLocation
-                    // showsCompass={true}
-                    // zoomControlEnabled={true}
-                    // zoomEnabled = {true}
-                    // showsMyLocationButton={true}
-                    // onRegionChange={(e)=>this.onRegionChange(e)}
-                    // onPoiClick={(e)=>this.onRegionChange(e)}
+                    scrollEnabled
                     > 
                     {this.marker}
                     </MapView>);
@@ -85,4 +80,5 @@ const styles = StyleSheet.create({
       maxHeight:350,
 
     },
+    errorInput: {borderColor:"red", borderWidth:1}
   });

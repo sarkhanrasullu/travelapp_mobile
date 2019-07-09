@@ -9,7 +9,7 @@ import CarUtilityPicker from "../components/carutilititypicker/CarUtilityPicker"
 import MyImagePicker from '../components/MyImagePicker';
 import EducationPicker from './educationpicker/EducationPicker';
 import GenderPicker from './genderpicker/GenderPicker';
-import MapPickerInput from './mappickerinput/MapPickerInput';
+import MapPicker from './mappicker/MapPicker';
 export default class FormInput extends Component {
     state = {
         val: null
@@ -77,7 +77,7 @@ export default class FormInput extends Component {
       }else if(type === "genderpicker"){
         result = <GenderPicker readOnly={readOnly} error={error} component={component} name={name} />
       }else if(type === "mappicker"){
-        result = <MapPickerInput readOnly={readOnly} error={error} component={component} name={name} />
+        result = <MapPicker readOnly={readOnly} error={error} component={component} name={name} />
       }else if(type === "custom"){
         result = customComponent;
       } 
