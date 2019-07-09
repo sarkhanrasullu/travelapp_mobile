@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as stateUtil from '../../api/StateUtil'
-const width = Dimensions.get("window").width*0.80;
+import { Text } from "native-base";
+const width = Dimensions.get("window").width*0.90;
 class MapPicker extends Component {
 
   state = {
-    initialRegion: null,//{latitude:null, longitude:null},
+    initialCoords: null,//{latitude:null, longitude:null},
+    initialRegion: null
   }
 
   marker = null;
@@ -14,49 +16,72 @@ class MapPicker extends Component {
   componentWillMount(){
       let currentValue = stateUtil.get(this);
       if(currentValue && currentValue.trim().length>0){
-        this.setState({initialRegion: JSON.parse(currentValue.trim())});
+        //console.log('current value');
+        const r = JSON.parse(currentValue.trim());
+        this.setState({initialCoords: r.coords, initialRegion: r.region});
       }else{
+        //console.log('navigator')
         navigator.geolocation.getCurrentPosition((position) => {
+          //console.log(Object.keys(position.coords));
           this.setState({
-            initialRegion: position.coords
+            initialCoords: position.coords,
+            initialRegion:{
+              latitude: 40.39197169316081,
+              latitudeDelta: 0.3487869675947195,
+              longitude: 49.87168582165617,
+              longitudeDelta: 0.39252751707090283,
+            }
+          //   {"longitude":47.71934755154428,
+          //   "latitude":40.13557906918777,
+          //   "latitudeDelta":3.4498359410859436,
+          //   "longitudeDelta":4.351445943768681
+          // }
+             
           });
+
+          this.setNewCoord(position.coords);
         });
       } 
+  } 
+
+  onDragEnd = (event)=>{ 
+    this.setNewCoord(event.nativeEvent.coordinate);
   }
 
-  onDragEnd = ()=>{
-    const newLoc = this.marker.props.coordinate;
-    // const newLL = {
-    //   latitude: newLoc.latitude,
-    //   longitude: newLoc.longitude 
-    // }
+  setNewCoord = (newCoord)=>{
+    const newLL = {
+      region: this.state.initialRegion,
+      coords: {
+        latitude: newCoord.latitude,
+        longitude: newCoord.longitude 
+      }
+    }
 
-    // console.log(JSON.stringify(newLL));
-
-    stateUtil.handleFieldChange(this, JSON.stringify(newLoc));
+    stateUtil.handleFieldChange(this, JSON.stringify(newLL));
   }
 
   render() {
     const { error, readOnly } = this.props;
-    if(this.state.initialRegion){
+    if(this.state.initialCoords){
      this.marker = <Marker
            title={"Pick me up here!"}
            draggable={!readOnly}
-           onDragEnd={()=>this.onDragEnd()}
-           coordinate={this.state.initialRegion}
+           onDragEnd={(event)=>this.onDragEnd(event)}
+           coordinate={this.state.initialCoords}
        />
     }
 
-    return (
-                <MapView
-                //initialRegion={this.state.val}
-                    style={[styles.container,  error ? styles.errorInput:null]}
-                    showsUserLocation
-                    followsUserLocation
-                    scrollEnabled
-                    > 
-                    {this.marker}
-                    </MapView>);
+    if(this.state.initialRegion===null){
+      return <Text>Map is loading...</Text>
+    }
+                    return ( <MapView
+                                initialRegion={this.state.initialRegion}
+                                onRegionChange={(event)=>{this.setState({initialRegion: event})}}
+                                showsUserLocation
+                                scrollEnabled 
+                                style={[styles.container,  error ? styles.errorInput:null]}> 
+                                {this.marker}
+                          </MapView>);
   }
 }
  

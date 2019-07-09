@@ -6,6 +6,10 @@ import {
   } from "native-base";
 class BookResult extends Component {
 
+    static navigationOptions = {
+      header: null
+    };
+
     handleSubmit = ()=>{
         const {navigation} = this.props;
         navigation.navigate('TripList', {update:true});
