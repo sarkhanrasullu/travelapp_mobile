@@ -115,7 +115,7 @@ class BookDetails extends Component {
 
     items = items.concat(
       {name:"pickupTime",label:"Pick-up Time", icon:iconTime},
-      {name:"pickupCoords",label:"Pick-up Place", icon:iconPlace, type:"mappicker"}
+      {name:"pickupCoords",label:"Pin Your Pick-up Place", icon:iconPlace, type:"mappicker"}
     )
 
     return (

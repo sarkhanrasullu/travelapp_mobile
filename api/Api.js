@@ -39,7 +39,7 @@ export default class Api {
   static handleLogin = (component, redirectSettings=true, callback, spinner=true, message=true)=>{
     if(spinner===true) component.props.setLoading(true);
     const u = {...component.state.target};
-    console.log(u);
+    ////console.log(u);
     const client_id = 'tripesco';
     const client_secret = 'bBVmmiPKSeseM';
 
@@ -61,7 +61,7 @@ export default class Api {
     Api.POST_HEADER_LOGIN(requestBody, requestHeader))
     .then((response) => response.json())
         .then((responseJson) => {
-          console.log(responseJson)
+          ////console.log(responseJson)
           if(responseJson.access_token && responseJson.access_token.length>0){
             Api.token = responseJson.access_token;
             Api.getLoggedInUser(component, redirectSettings, callback);
@@ -76,21 +76,21 @@ export default class Api {
 }
 
   static getLoggedInUser = (component, redirectSettings=true, callback)=>{
-    console.log('getLoggedInUser')
+    //console.log('getLoggedInUser')
     const u = {...component.state.target};
-    console.log(Api.GET_HEADER());
+    //console.log(Api.GET_HEADER());
     fetch(`${Settings.ip}/private/users/loggedinuser`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              //console.log('getLoggedInUser 2='+responseJson.result.id);
-              console.log(responseJson);
+              ////console.log('getLoggedInUser 2='+responseJson.result.id);
+              //console.log(responseJson);
               if(responseJson && responseJson.result && responseJson.result.id>0){
                 responseJson.result.token = Api.token;
-                //////console.log('getLoggedInUser 3='+redirectSettings);
+                ////////console.log('getLoggedInUser 3='+redirectSettings);
                 responseJson.result.password = u.password;
                 component.props.setLoggedInUser(responseJson.result);
                 if(redirectSettings){
-                //////console.log('getLoggedInUser 4')
+                ////////console.log('getLoggedInUser 4')
                   component.props.navigation.navigate('Settings');
                 }
                 if(callback){
@@ -102,8 +102,8 @@ export default class Api {
               }
             })
             .catch((error) => {
-              console.log("error=");
-              console.log(error);
+              //console.log("error=");
+              //console.log(error);
             });
   }
 
@@ -132,7 +132,7 @@ export default class Api {
     if(!component.state.validate()){
       return;
     }
-    //console.log(component.state.target);
+    ////console.log(component.state.target);
     props.setLoading(true);
 
     fetch(`${Settings.ip}/public/users/sendforgotkey`, Api.POST_HEADER(component.state.target))
@@ -153,7 +153,7 @@ export default class Api {
     if(!component.state.validate()){
       return;
     }
-    //console.log(component.state.target);
+    ////console.log(component.state.target);
     props.setLoading(true);
 
     fetch(`${Settings.ip}/public/users/verifyemail`, Api.POST_HEADER(component.state.target))
@@ -175,7 +175,7 @@ export default class Api {
       return;
     }
 
-    //console.log(component.state.target);
+    ////console.log(component.state.target);
     props.setLoading(true);
 
     fetch(`${Settings.ip}/public/users/resetpassword`, Api.POST_HEADER(component.state.target))
@@ -200,7 +200,7 @@ export default class Api {
     fetch(`${Settings.ip}/cars`, Api.POST_HEADER(driver.carList[0]))
       .then(response => response.json())
       .then(responseJson => { 
-        // //////console.log(responseJson)
+        // ////////console.log(responseJson)
         props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
       })
       .catch(error => {
@@ -232,7 +232,7 @@ export default class Api {
     const state = {...component.state};
     if(!state.validate()) return;
     const {target} = state;
-    //////console.log(Api.POST_HEADER(target))
+    ////////console.log(Api.POST_HEADER(target))
     props.setLoading(true);
     fetch(`${Settings.ip}/public/users`, Api.POST_HEADER(target))
       .then(response => response.json())
@@ -299,7 +299,7 @@ export default class Api {
   }
 
   static loadDriver = (component, callback)=> {
-    //////console.log('load driver');
+    ////////console.log('load driver');
         
         fetch(`${Settings.ip}/private/drivers/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
@@ -337,7 +337,7 @@ export default class Api {
         fetch(`${Settings.ip}/private/guides/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              //////console.log(responseJson);
+              ////////console.log(responseJson);
               const guide = responseJson.result;
               if(guide){
                 const busyDays = [];
@@ -361,7 +361,7 @@ export default class Api {
        }
 
   static loadCarUtilities = (component)=>{
-    //////console.log('load car utilities');
+    ////////console.log('load car utilities');
     fetch(`${Settings.ip}/carUtilities`, Api.GET_HEADER())
         .then((response) => response.json())
         .then((responseJson) => {
@@ -417,7 +417,7 @@ export default class Api {
           component.setState({isLoading: false});
         })
         .catch((error) => {
-          console.error(error);
+          //console.error(error);
         });
   }
 
@@ -497,7 +497,7 @@ export default class Api {
     '&languageId='+CommonUtil.cleanData(selectedLanguage)+
     '&genderId='+CommonUtil.cleanData(selectedGender);
 
-    //////console.log(url);
+    ////////console.log(url);
     props.setLoading(true);
       fetch(url, Api.GET_HEADER(false))
       .then((response) => response.json())
@@ -561,12 +561,12 @@ export default class Api {
     const {loggedInUser} = props;
     component.state.target = trip.userId;
     const url = `${Settings.ip}/public/trips/add`;
-    console.log(Api.token);
+    ////console.log(Api.token);
     fetch(url, Api.POST_HEADER(trip))
       .then(response => response.json())
       .then(responseJson => { 
         if(!loggedInUser){
-          console.log('login');
+          ////console.log('login');
           
           Api.handleLogin(component, false, ()=>{
             component.handleSuccess();
@@ -578,8 +578,8 @@ export default class Api {
         }
       })
       .catch(error => {
-        //////console.log('error trip');
-        console.log(error);
+        ////////console.log('error trip');
+        //console.log(error);
         props.setLoading(false, error);
       });
   };
@@ -607,7 +607,7 @@ export default class Api {
           Api.handleLogin(component);
         })
         .catch((error) => {
-          //////console.log(error);
+          ////////console.log(error);
           component.props.setLoading(false);
         });
   }
