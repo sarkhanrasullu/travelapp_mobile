@@ -5,13 +5,13 @@ import { encode as btoa} from 'base-64'
 export default class Api {
   static token = null;
 
-    static GET_HEADER = () =>{
+    static GET_HEADER = (passToken=true) =>{
       return {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization:Api.token? "Bearer "+Api.token:null
+          Authorization:Api.token && passToken? "Bearer "+Api.token:null
         },
       }
     }
@@ -39,7 +39,7 @@ export default class Api {
   static handleLogin = (component, redirectSettings=true, callback, spinner=true, message=true)=>{
     if(spinner===true) component.props.setLoading(true);
     const u = {...component.state.target};
-
+    console.log(u);
     const client_id = 'tripesco';
     const client_secret = 'bBVmmiPKSeseM';
 
@@ -61,6 +61,7 @@ export default class Api {
     Api.POST_HEADER_LOGIN(requestBody, requestHeader))
     .then((response) => response.json())
         .then((responseJson) => {
+          console.log(responseJson)
           if(responseJson.access_token && responseJson.access_token.length>0){
             Api.token = responseJson.access_token;
             Api.getLoggedInUser(component, redirectSettings, callback);
@@ -75,19 +76,21 @@ export default class Api {
 }
 
   static getLoggedInUser = (component, redirectSettings=true, callback)=>{
-    ////console.log('getLoggedInUser')
+    console.log('getLoggedInUser')
     const u = {...component.state.target};
-    fetch(`${Settings.ip}/users/loggedinuser`, Api.GET_HEADER())
+    console.log(Api.GET_HEADER());
+    fetch(`${Settings.ip}/private/users/loggedinuser`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              ////console.log('getLoggedInUser 2='+responseJson.result.id)
+              //console.log('getLoggedInUser 2='+responseJson.result.id);
+              console.log(responseJson);
               if(responseJson && responseJson.result && responseJson.result.id>0){
                 responseJson.result.token = Api.token;
-                ////console.log('getLoggedInUser 3='+redirectSettings);
+                //////console.log('getLoggedInUser 3='+redirectSettings);
                 responseJson.result.password = u.password;
                 component.props.setLoggedInUser(responseJson.result);
                 if(redirectSettings){
-                ////console.log('getLoggedInUser 4')
+                //////console.log('getLoggedInUser 4')
                   component.props.navigation.navigate('Settings');
                 }
                 if(callback){
@@ -99,6 +102,8 @@ export default class Api {
               }
             })
             .catch((error) => {
+              console.log("error=");
+              console.log(error);
             });
   }
 
@@ -112,7 +117,7 @@ export default class Api {
     Api.refreshCarUtilities(component);
     props.setLoading(true);
 
-    fetch(`${Settings.ip}/drivers/edit`, Api.POST_HEADER(driver))
+    fetch(`${Settings.ip}/private/drivers/edit`, Api.POST_HEADER(driver))
       .then(response => response.json())
       .then(responseJson => { 
         Api.loadDriver(component);
@@ -127,10 +132,10 @@ export default class Api {
     if(!component.state.validate()){
       return;
     }
-    console.log(component.state.target);
+    //console.log(component.state.target);
     props.setLoading(true);
 
-    fetch(`${Settings.ip}/users/sendforgotkey`, Api.POST_HEADER(component.state.target))
+    fetch(`${Settings.ip}/public/users/sendforgotkey`, Api.POST_HEADER(component.state.target))
       .then(response => response.json())
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage);
@@ -148,10 +153,10 @@ export default class Api {
     if(!component.state.validate()){
       return;
     }
-    console.log(component.state.target);
+    //console.log(component.state.target);
     props.setLoading(true);
 
-    fetch(`${Settings.ip}/users/verifyemail`, Api.POST_HEADER(component.state.target))
+    fetch(`${Settings.ip}/public/users/verifyemail`, Api.POST_HEADER(component.state.target))
       .then(response => response.json())
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage);
@@ -170,10 +175,10 @@ export default class Api {
       return;
     }
 
-    console.log(component.state.target);
+    //console.log(component.state.target);
     props.setLoading(true);
 
-    fetch(`${Settings.ip}/users/resetpassword`, Api.POST_HEADER(component.state.target))
+    fetch(`${Settings.ip}/public/users/resetpassword`, Api.POST_HEADER(component.state.target))
       .then(response => response.json())
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage);
@@ -195,7 +200,7 @@ export default class Api {
     fetch(`${Settings.ip}/cars`, Api.POST_HEADER(driver.carList[0]))
       .then(response => response.json())
       .then(responseJson => { 
-        // ////console.log(responseJson)
+        // //////console.log(responseJson)
         props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
       })
       .catch(error => {
@@ -211,7 +216,7 @@ export default class Api {
     guide.busyDays = null;
     props.setLoading(true);
     
-    fetch(`${Settings.ip}/guides`, Api.POST_HEADER(guide))
+    fetch(`${Settings.ip}/private/guides`, Api.POST_HEADER(guide))
       .then(response => response.json())
       .then(responseJson => { 
         Api.loadGuide(component, ()=>props.setLoading(false));
@@ -227,9 +232,9 @@ export default class Api {
     const state = {...component.state};
     if(!state.validate()) return;
     const {target} = state;
-    ////console.log(Api.POST_HEADER(target))
+    //////console.log(Api.POST_HEADER(target))
     props.setLoading(true);
-    fetch(`${Settings.ip}/users`, Api.POST_HEADER(target))
+    fetch(`${Settings.ip}/public/users`, Api.POST_HEADER(target))
       .then(response => response.json())
       .then(responseJson => { 
         //props.setLoading(false, Api.getErrorMessage(responseJson));
@@ -255,7 +260,7 @@ export default class Api {
     });
     driver.busyDays = res;
     props.setLoading(true, null, null);
-    fetch(`${Settings.ip}/drivers/work/edit`, Api.POST_HEADER(driver))
+    fetch(`${Settings.ip}/private/drivers/work/edit`, Api.POST_HEADER(driver))
       .then(response => response.json())
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
@@ -264,8 +269,6 @@ export default class Api {
         props.setLoading(false, error);
       });
   };
-
-
 
   static handleGuideWorkSchedule = (component) => {
     const { props } = component;
@@ -279,7 +282,7 @@ export default class Api {
     });
     guide.busyDays = res;
     props.setLoading(true, null, null);
-    fetch(`${Settings.ip}/guides/work/edit`, Api.POST_HEADER(guide))
+    fetch(`${Settings.ip}/private/guides/work/edit`, Api.POST_HEADER(guide))
       .then(response => response.json())
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage, responseJson.successMessage);
@@ -295,12 +298,10 @@ export default class Api {
     }
   }
 
-
-
   static loadDriver = (component, callback)=> {
-    ////console.log('load driver');
+    //////console.log('load driver');
         
-        fetch(`${Settings.ip}/drivers/loggedin`, Api.GET_HEADER())
+        fetch(`${Settings.ip}/private/drivers/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
               const driver = responseJson.result;
@@ -329,15 +330,14 @@ export default class Api {
             });
        }
   
-
   static loadGuide = (component, callback)=> {
         const props = component.props;
         props.setLoading(true);
         
-        fetch(`${Settings.ip}/guides/loggedin`, Api.GET_HEADER())
+        fetch(`${Settings.ip}/private/guides/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              ////console.log(responseJson);
+              //////console.log(responseJson);
               const guide = responseJson.result;
               if(guide){
                 const busyDays = [];
@@ -361,7 +361,7 @@ export default class Api {
        }
 
   static loadCarUtilities = (component)=>{
-    ////console.log('load car utilities');
+    //////console.log('load car utilities');
     fetch(`${Settings.ip}/carUtilities`, Api.GET_HEADER())
         .then((response) => response.json())
         .then((responseJson) => {
@@ -379,7 +379,7 @@ export default class Api {
     const props = component.props;
     const {selectedDate} = props;
     props.setLoading(true);
-    fetch(Settings.ip+'/drivers?date='+CommonUtil.formatDateByDash(selectedDate), Api.GET_HEADER())
+    fetch(Settings.ip+'/public/drivers?date='+CommonUtil.formatDateByDash(selectedDate), Api.GET_HEADER(false))
     .then((response) => response.json())
     .then((responseJson) => {
           props.setDrivers(responseJson.result);
@@ -408,6 +408,19 @@ export default class Api {
         });
   }
 
+  static loadGalleries = (component, spinner= true)=>{
+    fetch(Settings.ip + '/galleries', Api.GET_HEADER(false))
+    .then((response) => response.json())
+        .then((responseJson) => {
+          component.setState({ images:responseJson._embedded.galleries});
+          component.result = component.renderResult();
+          component.setState({isLoading: false});
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  }
+
   static loadLanguages = (component, spinner = true)=>{
     const props = component.props;
     if(spinner===true) props.setLoading(true);
@@ -427,16 +440,9 @@ export default class Api {
         });
   }
 
-
   static loadBrands = (component)=>{
     const props = component.props;
-    fetch(Settings.ip+'/brands', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => response.json())
+    fetch(Settings.ip+'/public/brands', Api.GET_HEADER(false)).then((response) => response.json())
         .then((responseJson) => {
           props.setBrands(responseJson.result);
           const driver = component.state.target;
@@ -451,16 +457,10 @@ export default class Api {
         });
   }
 
-
   static loadModels = (component, brandId)=>{
     const props = component.props;
-    fetch(Settings.ip+'/models?brandId='+brandId, {
-      method: 'GET',
-      headers: { 
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => response.json())
+    fetch(Settings.ip+'/public/models?brandId='+brandId, Api.GET_HEADER(false))
+    .then((response) => response.json())
         .then((responseJson) => {
           props.setModels(responseJson.result);
         })
@@ -487,40 +487,20 @@ export default class Api {
         });
   }
 
-  static loadTimeSlots = (component)=>{
-    const props = component.props;
-    fetch(Settings.ip+'/timeslots', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => response.json())
-        .then((responseJson) => {
-          props.setTimeSlots(responseJson._embedded.timeSlots);
-        })
-        .catch((error) => {
-        });
-  }
   static loadGuides = (component)=>{
     const { props } = component;
     const{ selectedDate, selectedDestination, selectedLanguage, selectedGender } = props;
    
-    const url= Settings.ip+'/guides?'+
+    const url= Settings.ip+'/public/guides?'+
     'date='+CommonUtil.formatDateByDash(selectedDate)+
     '&placeId='+CommonUtil.cleanData(selectedDestination)+
     '&languageId='+CommonUtil.cleanData(selectedLanguage)+
     '&genderId='+CommonUtil.cleanData(selectedGender);
 
-    ////console.log(url);
+    //////console.log(url);
     props.setLoading(true);
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }).then((response) => response.json())
+      fetch(url, Api.GET_HEADER(false))
+      .then((response) => response.json())
           .then((responseJson) => {
             props.setGuides(responseJson.result);
             props.setLoading(false);
@@ -580,13 +560,13 @@ export default class Api {
     props.setLoading(true);
     const {loggedInUser} = props;
     component.state.target = trip.userId;
-    const url = `${Settings.ip}/trips/add`;
-    
+    const url = `${Settings.ip}/public/trips/add`;
+    console.log(Api.token);
     fetch(url, Api.POST_HEADER(trip))
       .then(response => response.json())
       .then(responseJson => { 
         if(!loggedInUser){
-          ////console.log('login');
+          console.log('login');
           
           Api.handleLogin(component, false, ()=>{
             component.handleSuccess();
@@ -598,8 +578,8 @@ export default class Api {
         }
       })
       .catch(error => {
-        ////console.log('error trip');
-        ////console.log(error);
+        //////console.log('error trip');
+        console.log(error);
         props.setLoading(false, error);
       });
   };
@@ -607,7 +587,7 @@ export default class Api {
   static loadTrips = (component, type=2)=>{
     const props = component.props;
     props.setLoading(true);
-    const url = Settings.ip+'/trips?type='+type;
+    const url = Settings.ip+'/private/trips?type='+type;
     fetch(url, Api.GET_HEADER())
     .then((response) => response.json())
     .then((responseJson) => {
@@ -621,13 +601,13 @@ export default class Api {
   static register = (component)=>{
     component.props.setLoading(true);
      
-    fetch(`${Settings.ip}/users`, Api.POST_HEADER(component.state.target))
+    fetch(`${Settings.ip}/public/users`, Api.POST_HEADER(component.state.target))
     .then((response) => response.json())
         .then((responseJson) => {
           Api.handleLogin(component);
         })
         .catch((error) => {
-          ////console.log(error);
+          //////console.log(error);
           component.props.setLoading(false);
         });
   }

@@ -3,6 +3,9 @@ import { StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as stateUtil from '../../api/StateUtil'
 import { Text } from "native-base";
+import { connect } from 'react-redux';
+import { setLoading } from '../../modules/loading';
+
 const width = Dimensions.get("window").width*0.90;
 class MapPicker extends Component {
 
@@ -13,16 +16,16 @@ class MapPicker extends Component {
 
   marker = null;
 
-  componentWillMount(){
+  componentDidMount(){
       let currentValue = stateUtil.get(this);
       if(currentValue && currentValue.trim().length>0){
-        //console.log('current value');
+        console.log('current value');
         const r = JSON.parse(currentValue.trim());
         this.setState({initialCoords: r.coords, initialRegion: r.region});
       }else{
-        //console.log('navigator')
+        console.log('navigator')
         navigator.geolocation.getCurrentPosition((position) => {
-          //console.log(Object.keys(position.coords));
+          console.log(Object.keys(position.coords));
           this.setState({
             initialCoords: position.coords,
             initialRegion:{
@@ -39,22 +42,21 @@ class MapPicker extends Component {
              
           });
 
-          this.setNewCoord(position.coords);
+          this.updateMapData();
         });
       } 
   } 
 
   onDragEnd = (event)=>{ 
-    this.setNewCoord(event.nativeEvent.coordinate);
+    this.setState({initialCoords: event.nativeEvent.coordinate});
+    this.updateMapData();
   }
 
-  setNewCoord = (newCoord)=>{
+  updateMapData = ()=>{
+    
     const newLL = {
       region: this.state.initialRegion,
-      coords: {
-        latitude: newCoord.latitude,
-        longitude: newCoord.longitude 
-      }
+      coords: this.state.initialCoords
     }
 
     stateUtil.handleFieldChange(this, JSON.stringify(newLL));
@@ -64,7 +66,6 @@ class MapPicker extends Component {
     const { error, readOnly } = this.props;
     if(this.state.initialCoords){
      this.marker = <Marker
-           title={"Pick me up here!"}
            draggable={!readOnly}
            onDragEnd={(event)=>this.onDragEnd(event)}
            coordinate={this.state.initialCoords}
@@ -75,17 +76,35 @@ class MapPicker extends Component {
       return <Text>Map is loading...</Text>
     }
                     return ( <MapView
-                                initialRegion={this.state.initialRegion}
-                                onRegionChange={(event)=>{this.setState({initialRegion: event})}}
                                 showsUserLocation
                                 scrollEnabled 
+                                initialRegion={this.state.initialRegion}
+                                onRegionChange={(event)=>{
+                                    this.setState({initialRegion: event});
+                                    this.updateMapData();
+                                  }
+                                }
+                                onPress={ (event)=>{
+                                    this.setState({initialCoords: event.nativeEvent.coordinate});
+                                    this.updateMapData();
+                                  }
+                                }
                                 style={[styles.container,  error ? styles.errorInput:null]}> 
                                 {this.marker}
                           </MapView>);
   }
 }
  
-export default MapPicker;
+
+const moduleState = state => ({
+  isLoading: state.loading.loading,
+});
+
+const moduleActions = {
+  setLoading,
+}; 
+
+export default connect(moduleState, moduleActions)(MapPicker);
 
 const styles = StyleSheet.create({
     modal:{

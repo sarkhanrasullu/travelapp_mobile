@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { setDestinations } from '../../modules/destinations';
 import Gallery from "../../components/Gallery";
 import WelcomeNavigation from "./welcomeNavigation/WelcomeNavigation";
-import Settings from "../../constants/Settings";
 import Api from "../../api/Api";
 import ImageViewer from "../../components/imageviewer/ImageViewer";
 
@@ -37,27 +36,7 @@ class HomeScreen extends React.Component {
     //   this.props.setIdentification(CommonUtil.uuid());
     // }
     Api.loadDestinations(this, false);
-    fetch(Settings.ip + '/galleries', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }).then((response) => response.json())
-          .then((responseJson) => {
-            this.setState(
-                { 
-                  images:responseJson._embedded.galleries
-                }
-            );
-
-            this.result = this.renderResult();
-
-            this.setState({isLoading: false});
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+    Api.loadGalleries(this, false);
   }
 
   renderResult() {

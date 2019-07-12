@@ -21,8 +21,10 @@ class BookTotal extends Component {
      
 
     handleSuccess = ()=>{
-        const { navigation } = this.props;
+      console.log('handle book success')  
+      const { navigation } = this.props;
         navigation.navigate('BookSuccess');
+
     }
 
     handleSubmit = ()=>{
