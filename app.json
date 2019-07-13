@@ -10,7 +10,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
     "splash": {
@@ -25,14 +25,13 @@
       "assets/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier":"com.company.travelapp"
+      "bundleIdentifier":"com.tripesco.app"
     },
     "android": {
-      "package": "com.company.travelapp",
-      "versionCode":1,
-      "permissions": [],
-      "icon" :"./assets/icons/icon.png"
+      "package": "com.tripesco.app",
+      "icon" :"./assets/icons/icon.png",
+      "versionCode": 3,
+      "permissions": []
     },
     "description": ""
   }
