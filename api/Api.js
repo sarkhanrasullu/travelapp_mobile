@@ -140,7 +140,7 @@ export default class Api {
       .then(responseJson => { 
         props.setLoading(false, responseJson.errorMessage);
         if(responseJson.code===1){
-          props.navigation.navigate('VerifyEmail',{prevTarget: component.state.target});
+          props.navigation.navigate('VerifyEmail',{prevComponent: component});
         }
       })
       .catch(error => {

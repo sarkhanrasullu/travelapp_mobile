@@ -12,7 +12,7 @@ import LoadingSpinner from '../../../../components/LoadingSpinner';
 class VerifyEmail extends Component {
  
     state = {
-      target:this.props.navigation.getParam("prevTarget"),
+      target:this.props.navigation.getParam("prevComponent").state.target,
       validation:{},
       validate:null
     }
