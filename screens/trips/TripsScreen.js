@@ -16,28 +16,64 @@ class TripsScreen extends React.Component {
     shouldComponentUpdate(){
       const { navigation } = this.props;
       const update = navigation.getParam("update");
+      const mode = navigation.getParam("mode");
       if(update){
-        Api.loadTrips(this, 1);
+        let type = 1;
+        if(mode==="employee"){
+          type = 3;
+        }
+        Api.loadTrips(this, type);
       }
       return true;
     }
 
 
+    getMode = ()=>{
+      const { navigation } = this.props;
+      const mode = navigation.getParam("mode");
+      return mode;
+    }
+
+    getTypeForUpcoming = ()=>{
+      const { navigation } = this.props;
+      let type = 1;
+      const mode = navigation.getParam("mode");
+      if(mode==="driver"){
+        type = 3;
+      }else if(mode==="guide"){
+        type = 5;
+      }
+      return type;
+    }
+
+    getTypeForHistory = ()=>{
+      const { navigation } = this.props;
+      let type = 2;
+      const mode = navigation.getParam("mode");
+      if(mode==="driver"){
+        type = 4;
+      }else if(mode==="guide"){
+        type = 6;
+      }
+      return type;
+    }
+
     componentDidMount() {
-      Api.loadTrips(this, 1);
+      let type = this.getTypeForUpcoming();
+      Api.loadTrips(this, type);
     }
     
 
    tabUpcoming = {
     title: "Upcoming",
     body: <TripList/>,
-    onChange: ()=> Api.loadTrips(this, 1)
+    onChange: ()=> Api.loadTrips(this, this.getTypeForUpcoming())
   }
 
    tabHistory = {
     title: "History",
     body: <TripList/>,
-    onChange: ()=> Api.loadTrips(this, 2)
+    onChange: ()=> Api.loadTrips(this, this.getTypeForHistory())
   }
 
   tabs = [this.tabUpcoming, this.tabHistory];

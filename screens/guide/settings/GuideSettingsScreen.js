@@ -10,17 +10,27 @@ import { withNavigation } from 'react-navigation';
 import SettingsItem from './SettingsItem';
 import { Container, Content } from 'native-base';
 import { connect } from 'react-redux';
+import Api from './../../../api/Api';
 
 class GuideSettingsScreen extends React.Component {
 
-  switchTo = (screen) => {
+  state = {
+    target:{},
+    loading: true
+  }
+
+  componentWillMount(){
+    console.log('guide will mount');
+    Api.loadGuide(this);
+  }
+
+  switchTo = (screen, params) => {
     const {navigation} = this.props;
-    navigation.navigate(screen);
+    navigation.navigate(screen, params);
   }
 
   render() {
-    const {loggedInUser} = this.props;
-    const guide = loggedInUser && loggedInUser.guideList && loggedInUser.guideList.length>0?loggedInUser.guideList[0]:null;
+    const guide = this.state.target;
     return (
       <Container >
         <Content>
@@ -31,12 +41,12 @@ class GuideSettingsScreen extends React.Component {
                       <TouchableOpacity onPress={()=>this.switchTo('GuideRegistration')} activeOpacity={1} >
                            <SettingsItem text={"Registration Form"}/>
                       </TouchableOpacity>
-                      { guide && guide.id && !guide.isVerified? 
+                      { guide && guide.isVerified? 
                           <React.Fragment>
                             <TouchableOpacity onPress={()=>this.switchTo('GuideWorkingDates')} activeOpacity={1} >
                                 <SettingsItem text={"Work Schedule"}/>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>this.switchTo('Your Trips')} activeOpacity={1} >
+                            <TouchableOpacity onPress={()=>this.switchTo('TripsScreen', {mode:"guide"})} activeOpacity={1} >
                                 <SettingsItem text={"Your Trips"}/>
                             </TouchableOpacity> 
                           </React.Fragment>:null

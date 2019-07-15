@@ -24,6 +24,7 @@ import BookResult from '../screens/book/BookResult';
 import VerifyEmail from '../screens/settings/loginregister/forgotpassword/VerifyEmail';
 import ResetPassword from '../screens/settings/loginregister/forgotpassword/ResetPassword';
 import SendForgotKey from '../screens/settings/loginregister/forgotpassword/SendForgotKey';
+import TripsScreen from '../screens/trips/TripsScreen';
 
 export default createStackNavigator({
 
@@ -167,6 +168,12 @@ export default createStackNavigator({
     screen: ResetPassword,
     navigationOptions: {
       title: "Reset Password"
+    }
+  },
+  TripsScreen: {
+    screen: TripsScreen,
+    navigationOptions: {
+      title: "Trips"
     }
   }
 

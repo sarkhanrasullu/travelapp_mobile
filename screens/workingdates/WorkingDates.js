@@ -5,15 +5,14 @@ import {
   Text,
   Container, 
   Content,
-  Button, 
 } from "native-base";
-import UIButton from "../components/ui/UIButton";
-import { setLoggedInUser } from "../modules/auth";
-import { setLoading } from "../modules/loading";
+import UIButton from "../../components/ui/UIButton";
+import { setLoggedInUser } from "../../modules/auth";
+import { setLoading } from "../../modules/loading";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
-import LoadingSpinner from "../components/LoadingSpinner";
-import FormSection from "../components/FormSection";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import FormSection from "../../components/FormSection";
 import CalendarPicker from 'react-native-calendar-picker';
 const window = Dimensions.get("window");
 const contentWidth = window.width * 0.8;
@@ -45,7 +44,6 @@ class WorkingDates extends Component {
   generateCustomDatesStyles = ()=>{
       const state= this.state;
       const busyDays = state[this.props.entityName].busyDays;
-      // //console.log(busyDays);
       const customDatesStyles = busyDays.map((busyDay, index)=> {
         return { date: new Date(busyDay), style: {backgroundColor: 'red'}}
       });

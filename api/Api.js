@@ -299,12 +299,12 @@ export default class Api {
   }
 
   static loadDriver = (component, callback)=> {
-    ////////console.log('load driver');
-        
+        component.setState({loading: true});
         fetch(`${Settings.ip}/private/drivers/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
               const driver = responseJson.result;
+              
               if(driver){
                 if(!driver.carList) driver.carList =[]
                 if(!driver.carList[0]) driver.carList = [{modelId:{brandId:{}}}]
@@ -312,8 +312,10 @@ export default class Api {
                 if(driver.busyDays){
                     const tempBusyDays = driver.busyDays.split(";");
                     tempBusyDays.forEach((bd)=>{
+                      console.log(bd)
                       if(bd.trim().length===0) return;
-                      const datestr = new Date(bd).toString().replace(" (+04)","").replace("04:00:00","00:00:00");
+                      const datestr = new Date(bd.trim()).toString().replace(" (+04)","").replace("04:00:00","00:00:00");
+                      console.log(datestr);
                       busyDays.push(datestr);
                     })
                 }
@@ -321,23 +323,23 @@ export default class Api {
                 Api.checkUtilities(component, driver);
                 Api.loadBrands(component);
                 component.setState({target: driver});
+                component.setState({driver: driver});
 
                 if(callback) callback();
               }
-              component.props.setLoading(false);
+              component.setState({loading: false});
             })
             .catch((error) => {
+              component.setState({loading: false});
             });
        }
   
   static loadGuide = (component, callback)=> {
-        const props = component.props;
-        props.setLoading(true);
+        component.setState({loading: true});
         
         fetch(`${Settings.ip}/private/guides/loggedin`, Api.GET_HEADER())
         .then((response) => response.json())
             .then((responseJson) => {
-              ////////console.log(responseJson);
               const guide = responseJson.result;
               if(guide){
                 const busyDays = [];
@@ -350,13 +352,19 @@ export default class Api {
                     })
                 }
                 guide.busyDays = busyDays;
-                component.setState({target: guide});
                 if(callback) callback();
+                component.setState({
+                  target: guide, 
+                  guide: guide,
+                  loading: false
+                });
+                
+              }else{
+                component.setState({loading: false});
               }
-              props.setLoading(false);
             })
             .catch((error) => {
-                props.setLoading(false);
+              component.setState({loading: false});
             });
        }
 
@@ -588,6 +596,7 @@ export default class Api {
     const props = component.props;
     props.setLoading(true);
     const url = Settings.ip+'/private/trips?type='+type;
+    console.log(url);
     fetch(url, Api.GET_HEADER())
     .then((response) => response.json())
     .then((responseJson) => {

@@ -1,5 +1,3 @@
-import Settings from "./Settings";
-
 export default class Assets{
     static image1 = './../../../assets/icons/location.base64';
     static image2 = './../../../assets/icons/calendar.base64'; 

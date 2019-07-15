@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Api from '../../../api/Api';
-import WorkingDates from "../../WorkingDates";
+import WorkingDates from "../../workingdates/WorkingDates";
 
 class GuideWorkingDates extends Component {
   render() {

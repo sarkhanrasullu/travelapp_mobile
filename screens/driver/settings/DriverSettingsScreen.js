@@ -10,17 +10,31 @@ import { withNavigation } from 'react-navigation';
 import SettingsItem from './SettingsItem';
 import { Container, Content } from 'native-base';
 import { connect } from 'react-redux';
+import Api from './../../../api/Api';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 class DriverSettingsScreen extends React.Component {
 
-  switchTo = (screen) => {
+  state = {
+    target:{},
+    loading: true
+  }
+
+  componentWillMount(){
+    console.log('driver will mount');
+    Api.loadDriver(this);
+  }
+
+  switchTo = (screen, params) => {
     const {navigation} = this.props;
-    navigation.navigate(screen);
+    navigation.navigate(screen, params);
   }
 
   render() {
-    const {loggedInUser} = this.props;
-    const driver = loggedInUser && loggedInUser.driverList && loggedInUser.driverList.length>0?loggedInUser.driverList[0]:null;
+    if(this.state.loading){
+      return <LoadingSpinner/>
+    }
+    const driver = this.state.target;
     return (
       <Container >
         <Content>
@@ -31,12 +45,12 @@ class DriverSettingsScreen extends React.Component {
                        <TouchableOpacity onPress={()=>this.switchTo('DriverRegistration')} activeOpacity={1} >
                            <SettingsItem text={"Registration Form"}/>
                       </TouchableOpacity>
-                      { driver && driver.id && !driver.isVerified? 
+                      { driver && driver.isVerified? 
                           <React.Fragment>
                             <TouchableOpacity onPress={()=>this.switchTo('DriverWorkingDates')} activeOpacity={1} >
                                 <SettingsItem text={"Work Schedule"}/>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>this.switchTo('Your Trips')} activeOpacity={1} >
+                            <TouchableOpacity onPress={()=>this.switchTo('TripsScreen', {mode:"driver"})} activeOpacity={1} >
                                 <SettingsItem text={"Your Trips"}/>
                             </TouchableOpacity> 
                           </React.Fragment>:null
