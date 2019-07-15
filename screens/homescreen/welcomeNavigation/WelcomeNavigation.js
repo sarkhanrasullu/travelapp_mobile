@@ -5,8 +5,7 @@ import ViewRow from '../../../components/grid/ViewRow';
 import {Dimensions} from 'react-native'
 import UIButton from '../../../components/ui/UIButton';
 import { withNavigation } from 'react-navigation';
-import images from './../../../assets/icons/base64images';
-
+import images from '../../../assets/icons/base64images';
 let win = Dimensions.get("window");
 const width = win.width;
 const height = win.height;
@@ -18,21 +17,22 @@ class WelcomeNavigation extends Component {
         return (
             <View style={{alignSelf:"center",height:500, width:containerWidth, justifyContent:"space-between"}}>
                 <ViewRow >
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"1. Choose region"} base64
-                    images={[images.image1+""]} />
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"1. Choose region"} 
+                    base64
+                    images={[images.image1]} />
                     <ThumbnailText fontSize={10} width={80} height={80} text={"2. Choose dates"}
-                    base64 images={[images.image2]}  />
+                     images={[images.image2]}  />
                 </ViewRow>
                 <ViewRow >
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"3. Choose vehicle"} base64
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"3. Choose vehicle"} 
                     images={[images.image3]}  />
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"4. Choose guide"} base64
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"4. Choose guide"} 
                     images={[images.image4]}  />
                 </ViewRow>
                 <ViewRow>
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"5. Pay by cash"} base64
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"5. Pay by cash"} 
                     images={[images.image5]}  />
-                     <ThumbnailText fontSize={10} width={80} height={80} text={"6. You are DONE!"} base64
+                     <ThumbnailText fontSize={10} width={80} height={80} text={"6. You are DONE!"} 
                     images={[images.image6]}  />
                 </ViewRow>
                         

@@ -4,7 +4,6 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import store from './modules';
-import images from './assets/icons/base64images';
 
 class App extends React.Component {
   state = {
@@ -12,7 +11,7 @@ class App extends React.Component {
   };
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.isLoadingComplete) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -46,15 +45,14 @@ class App extends React.Component {
         FontAwesome: require('react-native-vector-icons/Fonts/FontAwesome.ttf')
       }),
       // Asset.loadAsync([
-      //   images.banner,
-      //   images.select_person,
-      //   images.contact_info,
-      //   images.image1,
-      //   images.image2,
-      //   images.image3,
-      //   images.image4,
-      //   images.image5,
-      //   images.image6,
+      //   "./assets/image/image1.png",
+      //   "./assets/image/image2.png",
+      //   "./assets/image/image3.png",
+      //   "./assets/image/image4.png",
+      //   "./assets/image/image5.png",
+      //   "./assets/image/image6.png",
+      //   "./assets/image/banner.png",
+      //   "./assets/image/contact_info.png"
       // ])
     ]);
   };
