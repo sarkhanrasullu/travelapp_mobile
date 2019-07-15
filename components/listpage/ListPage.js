@@ -14,7 +14,7 @@ class ListPage extends React.Component {
 
   renderList() {
     if(this.props.isLoading){
-      return <LoadingSpinner/>
+      return <LoadingSpinner marginTop={this.props.spinnerMarginTop}/>
     }
     
     let { list } = this.props;

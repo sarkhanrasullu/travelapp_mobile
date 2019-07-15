@@ -32,7 +32,9 @@ class MapPicker extends Component {
       }
       // else{
       //   console.log('navigator')
-      //   navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.setState({initialCoords: position.coords});
+          this.updateMapData();
       //     console.log(Object.keys(position.coords));
       //     this.setState({
       //       initialCoords: position.coords,
@@ -46,7 +48,7 @@ class MapPicker extends Component {
       //     });
 
       //     this.updateMapData();
-      //   });
+        });
       // } 
   } 
 

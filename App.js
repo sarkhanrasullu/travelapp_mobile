@@ -45,28 +45,17 @@ class App extends React.Component {
         Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
         FontAwesome: require('react-native-vector-icons/Fonts/FontAwesome.ttf')
       }),
-      Asset.loadAsync([
-        images.banner,
-        images.select_person,
-        images.contact_info,
-        images.image1,
-        images.image2,
-        images.image3,
-        images.image4,
-        images.image5,
-        images.image6,
-    ])
-    //  Asset.loadAsync([
-    //         Settings.cdnIcon+'/select_person.jpg',
-    //         Settings.cdnIcon+'/contact_info.png',
-    //         Settings.cdnIcon+'/banner.png',
-    //         Settings.cdnIcon+'/Location.png',
-    //         './assets/icons/calendar.base64',
-    //         Settings.cdnIcon+'/vechiles.png',
-    //         Settings.cdnIcon+'/Guide.png',
-    //         Settings.cdnIcon+'/Payment.png',
-    //         Settings.cdnIcon+'/invoice.png'
-    //     ])
+      // Asset.loadAsync([
+      //   images.banner,
+      //   images.select_person,
+      //   images.contact_info,
+      //   images.image1,
+      //   images.image2,
+      //   images.image3,
+      //   images.image4,
+      //   images.image5,
+      //   images.image6,
+      // ])
     ]);
   };
 

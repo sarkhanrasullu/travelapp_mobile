@@ -1,9 +1,9 @@
 {
-  "name": "TravelApp",
-  "displayname": "TravelAppDisplay",
+  "name": "TRIPESCO",
+  "displayname": "TRIPESCO",
   "expo": {
-    "name": "TravelApp",
-    "slug": "travelapp",
+    "name": "TRIPESCO",
+    "slug": "TRIPESCO",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -30,7 +30,7 @@
     "android": {
       "package": "com.tripesco.app",
       "icon" :"./assets/icons/icon.png",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": []
     },
     "description": ""

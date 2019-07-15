@@ -17,7 +17,13 @@ class DriverList extends React.Component {
     const {drivers} = this.props;
     let data = [];
     if(drivers) data = drivers.filter((driver)=>driver.carList[0]!=undefined);
-    return <ListPage header={header} footer={footer} list={data} renderType={Driver} headerHeight={113}/>
+    return <ListPage 
+      spinnerMarginTop={"35%"}
+      header={header} 
+      footer={footer} 
+      list={data} 
+      renderType={Driver} 
+      headerHeight={113}/>
   }
 
 }

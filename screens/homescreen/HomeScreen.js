@@ -32,9 +32,6 @@ class HomeScreen extends React.Component {
   }
 
   componentWillMount() {
-    // if(!this.props.identificationNumber){
-    //   this.props.setIdentification(CommonUtil.uuid());
-    // }
     Api.loadDestinations(this, false);
     Api.loadGalleries(this, false);
   }
