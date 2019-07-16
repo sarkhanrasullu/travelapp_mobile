@@ -4,7 +4,7 @@ import { Picker, Item } from "native-base";
 import { setLanguage } from "../modules/guides";
 import { setLanguages } from '../modules/languages';
 import { setLoading } from '../modules/loading'
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Ionicons from "react-native-ionicons";
 import Api from "../api/Api";
 
 class LanguagePicker extends Component {

@@ -8,7 +8,7 @@ import {
   Input,
   Item,
 } from "native-base";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ModalCalendar from "../../components/ModalCalendar";
 import { setDrivers } from '../../modules/drivers';
 import { setDate, resetGuideAndDriver } from "../../modules/entities";

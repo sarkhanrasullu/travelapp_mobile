@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions, ScrollView } from "react-native";
 import { View } from "native-base";
-import { Icon } from "expo";
+import Ionicons from "react-native-ionicons";
 import { connect } from 'react-redux';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CommonUtil from "../../api/CommonUtil";
 import Label from '../../components/label/Label';
 import DynamicForm from "../../components/dynamicform/DynamicForm";
@@ -98,7 +98,7 @@ class BookDetails extends Component {
   }
 
   getRegistrationForm = ()=>{
-    const iconPlace = <Icon.Ionicons name={"ios-pin"} size={20} style={styles.icon} />
+    const iconPlace = <Ionicons name={"ios-pin"} size={20} style={styles.icon} />
     const iconTime = <FontAwesome size={17} name="calendar" style={styles.icon}/>
 
     let items = [];

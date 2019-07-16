@@ -16,7 +16,7 @@ class InfoPanel extends Component {
     if (!this.state.readMore && info && info.length > 180) {
       description = info.substring(0, 180);
       readMoreButton = (
-        <Text style={{ color: theme.colors.active,fontSize:15 }} onPress={() => { this.setState({ readMore: true }); }} >
+        <Text style={{ color: '#007BFA',fontSize:15 }} onPress={() => { this.setState({ readMore: true }); }} >
           {" Read more"}
         </Text>
       );
@@ -47,22 +47,22 @@ const styles = StyleSheet.create({
     },
     contentHeader: {
       backgroundColor: "transparent",
-      padding: theme.sizes.padding,
-      backgroundColor: theme.colors.white,
-      borderTopLeftRadius: theme.sizes.radius,
-      borderTopRightRadius: theme.sizes.radius,
-      marginTop: -theme.sizes.padding / 2
+      padding: 36,
+      backgroundColor: '#FFF',
+      borderTopLeftRadius: 12,
+      borderTopRightRadius: 12,
+      marginTop: -36 / 2
     },
     avatar: {
       position: "absolute",
-      top: -theme.sizes.margin,
-      right: theme.sizes.margin,
-      width: theme.sizes.padding * 2,
-      height: theme.sizes.padding * 2,
-      borderRadius: theme.sizes.padding
+      top: -36,
+      right: 36,
+      width: 36 * 2,
+      height: 36 * 2,
+      borderRadius: 36
     },
     shadow: {
-      shadowColor: theme.colors.black,
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 6
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
     description: {
       fontSize: 15,
       lineHeight: 15,
-      color: theme.colors.caption
+      color: '#BCCCD4'
     }
   });

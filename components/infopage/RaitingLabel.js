@@ -5,7 +5,7 @@ import {
     View,
     Text,
   } from "native-base";
-import * as theme from "../../theme";
+
 
 class RaitingLabel extends Component {
 
@@ -17,8 +17,8 @@ class RaitingLabel extends Component {
         <FontAwesome
           name="star"
           key={`star-${index}`}
-          size={theme.sizes.font}
-          color={theme.colors[activeStar ? "active" : "gray"]}
+          size={14}
+          color={activeStar ? '#007BFA' : "#DCE0E9"}
           style={{ marginRight: 4 }}
         />
       );
@@ -30,12 +30,12 @@ class RaitingLabel extends Component {
     <View
         style={[
         styles.row,
-        { alignItems: "center", marginVertical: theme.sizes.margin / 2 }
+        { alignItems: "center", marginVertical: 36 / 2 }
         ]}
     >
     {this.renderRatings(reviewAvg)}
-    <Text style={{ color: theme.colors.active,fontSize:15 }}>{reviewAvg}</Text>
-    <Text style={{ marginLeft: 8, color: theme.colors.caption,fontSize:15 }}>
+    <Text style={{ color: '#007BFA',fontSize:15 }}>{reviewAvg}</Text>
+    <Text style={{ marginLeft: 8, color: '#BCCCD4',fontSize:15 }}>
       ({reviewCount} reviews)
     </Text>
   </View>

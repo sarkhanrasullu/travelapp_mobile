@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {  Animated, Dimensions } from 'react-native';
 import {  Text,  View } from 'native-base';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import * as theme from '../../theme';
 import Gallery from '../../components/Gallery';
 import { withNavigation } from 'react-navigation';
 const { width } = Dimensions.get('window');
@@ -27,8 +26,8 @@ class Destination extends Component {
                           <Text uppercase style={{fontWeight:"500", fontSize:14}}>{destination.name}</Text>
                         </View>
                         <View style={{alignItems:"center", flex:1, flexDirection:"row",position:"absolute", right:5}}>
-                            <FontAwesome name="location-arrow" color={theme.colors.active} size={12} />
-                            <Text style={{ color: theme.colors.active, fontSize:13 }}> {destination.distance} miles away</Text>
+                            <FontAwesome name="location-arrow" color={'#007BFA'} size={12} />
+                            <Text style={{ color: '#007BFA', fontSize:13 }}> {destination.distance} miles away</Text>
                         </View>
                     </View>
                 </View>

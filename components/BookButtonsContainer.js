@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dimensions, TouchableOpacity} from "react-native";
-import { Icon } from "expo";
+import Ionicons from "react-native-ionicons";
 import { View, Text } from "native-base";
 import { connect } from 'react-redux';
 import { setDestination } from '../modules/entities';
@@ -48,7 +48,7 @@ class BookButtonsContainer extends Component {
               maxHeight:60,
             }}
           >
-            <Icon.Ionicons  color="#fff"  name="ios-car" size={26} />
+            <Ionicons  color="#fff"  name="ios-car" size={26} />
             <Text style={{ fontSize: 8, fontWeight: "400", color: "#fff" }}>
               GET DRIVER
             </Text>
@@ -66,7 +66,7 @@ class BookButtonsContainer extends Component {
               maxHeight:60,
             }}
           >
-            <Icon.Ionicons name="ios-body" size={26} color="#fff" />
+            <Ionicons name="ios-body" size={26} color="#fff" />
             <Text style={{ fontSize: 8, fontWeight: "400", color: "#fff" }}>
               GET GUIDE
             </Text>
@@ -97,8 +97,8 @@ class BookButtonsContainer extends Component {
                 paddingTop:0
               }}
             >
-              <Icon.Ionicons  color="#fff"  name="ios-body" size={26} />
-              <Icon.Ionicons  color="#fff"  name="ios-car" size={26} />
+              <Ionicons  color="#fff"  name="ios-body" size={26} />
+              <Ionicons  color="#fff"  name="ios-car" size={26} />
             </View>
 
             <Text style={{ fontSize: 8, fontWeight: "400", color: "#fff"}}>

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import {  Text, Button, View } from 'native-base';
-import { Icon } from 'expo';
 import SocialButtonWrapper from './SocialButtonWrapper';
 export default class GmailButton extends Component {
     render() {

@@ -16,7 +16,7 @@ import {
   Content,
   Footer
 } from "native-base";
-import * as theme from "../../theme";
+
 import Gallery from "../../components/Gallery";
 
 const { width } = Dimensions.get("window");
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
   header: {
     // backgroundColor: 'transparent',
-    paddingHorizontal: theme.sizes.padding,
-    paddingTop: theme.sizes.padding,
+    paddingHorizontal: 36,
+    paddingTop: 36,
     justifyContent: "space-between",
     alignItems: "center",
     position: "absolute",
@@ -46,34 +46,29 @@ const styles = StyleSheet.create({
     right: 0
   },
   back: {
-    width: theme.sizes.base * 3,
-    height: theme.sizes.base * 3,
+    width: 16 * 3,
+    height: 16 * 3,
     justifyContent: "center",
     alignItems: "flex-start"
   },
-  content: {
-    // backgroundColor: theme.colors.active,
-    // borderTopLeftRadius: theme.sizes.border,
-    // borderTopRightRadius: theme.sizes.border,
-  },
   contentHeader: {
     backgroundColor: "transparent",
-    padding: theme.sizes.padding,
-    backgroundColor: theme.colors.white,
-    borderTopLeftRadius: theme.sizes.radius,
-    borderTopRightRadius: theme.sizes.radius,
-    marginTop: -theme.sizes.padding / 2
+    padding: 36,
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    marginTop: -36 / 2
   },
   avatar: {
     position: "absolute",
-    top: -theme.sizes.margin,
-    right: theme.sizes.margin,
-    width: theme.sizes.padding * 2,
-    height: theme.sizes.padding * 2,
-    borderRadius: theme.sizes.padding
+    top: -36,
+    right: 36,
+    width: 36 * 2,
+    height: 36 * 2,
+    borderRadius: 36
   },
   shadow: {
-    shadowColor: theme.colors.black,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 6
@@ -94,7 +89,7 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 6,
-    backgroundColor: theme.colors.gray
+    backgroundColor: '#DCE0E9'
   },
   title: {
     fontSize: 20,
@@ -103,7 +98,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 15,
     lineHeight: 15,
-    color: theme.colors.caption
+    color: '#BCCCD4'
   }
 });
 
@@ -120,8 +115,8 @@ class InfoPage extends Component {
         <FontAwesome
           name="star"
           key={`star-${index}`}
-          size={theme.sizes.font}
-          color={theme.colors[activeStar ? "active" : "gray"]}
+          size={14}
+          color={activeStar ? "#007BFA" : "#DCE0E9"}
           style={{ marginRight: 4 }}
         />
       );
@@ -137,7 +132,7 @@ class InfoPage extends Component {
       description = info.substring(0, 180);
       readMoreButton = (
         <Text
-          style={{ color: theme.colors.active,fontSize:15 }}
+          style={{ color: '#007BFA',fontSize:15 }}
           onPress={() => {
             this.setState({ readMore: true });
           }}
@@ -159,12 +154,12 @@ class InfoPage extends Component {
           <View
             style={[
               styles.row,
-              { alignItems: "center", marginVertical: theme.sizes.margin / 2 }
+              { alignItems: "center", marginVertical: 36 / 2 }
             ]}
           >
             {this.renderRatings(reviewAvg)}
-            <Text style={{ color: theme.colors.active,fontSize:15 }}>{reviewAvg}</Text>
-            <Text style={{ marginLeft: 8, color: theme.colors.caption,fontSize:15 }}>
+            <Text style={{ color: '#007BFA',fontSize:15 }}>{reviewAvg}</Text>
+            <Text style={{ marginLeft: 8, color: '#BCCCD4',fontSize:15 }}>
               ({reviewCount} reviews)
             </Text>
           </View>

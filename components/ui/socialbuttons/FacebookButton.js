@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {  Text, Button, View } from 'native-base';
-import { Icon } from 'expo';
+import { Icon } from 'react-native-vector-icons';
 import SocialButtonWrapper from './SocialButtonWrapper';
 export default class FacebookButton extends Component {
     render() {

@@ -4,25 +4,18 @@ import {
   Animated,
   Dimensions,
   ScrollView,
-  TouchableOpacity,
   ImageBackground
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Ionicons from 'react-native-ionicons'
 
-import * as theme from "../../theme";
 import {
   View,
-  Text,
-  Button,
-  Thumbnail,
-  Container,
-  Row,
-  Grid,
-  Content,
-  Footer
+  Text, 
+  Container, 
+  Content
 } from "native-base";
-import { Icon } from "expo";
 import BookContainer from "../../components/BookContainer";
 const { width, height } = Dimensions.get("window");
 
@@ -40,8 +33,8 @@ class GuideInfo extends Component {
         <FontAwesome
           name="star"
           key={`star-${index}`}
-          size={theme.sizes.font}
-          color={theme.colors[activeStar ? "active" : "gray"]}
+          size={14}
+          color={activeStar ? "#007BFA" : "#DCE0E9"}
           style={{ marginRight: 4 }}
         />
       );
@@ -65,7 +58,7 @@ class GuideInfo extends Component {
     if (guide.about && guide.about.length > 180 && !this.state.readMore) {
       readMoreButton = (
         <Text
-          style={{ color: theme.colors.active, fontSize:15 }}
+          style={{ color: '#007BFA', fontSize:15 }}
           onPress={() => {
             this.setState({ readMore: true });
           }}
@@ -118,7 +111,7 @@ class GuideInfo extends Component {
                                 alignItems: "center"
                               }}
                             >
-                              <Icon.Ionicons name="ios-checkmark-circle-outline" size={17} />
+                              <Ionicons name="ios-checkmark-circle-outline" size={17} />
                               <Text style={{ marginLeft: 4 }}>
                                 Verified
                               </Text>
@@ -132,7 +125,7 @@ class GuideInfo extends Component {
                         alignItems: "center"
                       }}
                     >
-                      <Icon.Ionicons name="ios-chatbubbles" size={17} />
+                      <Ionicons name="ios-chatbubbles" size={17} />
                       <Text style={{ marginLeft: 4, fontSize:15 }}>
                         {guide.reviewCount} Reviews
                       </Text>
@@ -145,10 +138,10 @@ class GuideInfo extends Component {
                       }}
                     >
                       {this.renderRatings(guide.reviewAvg)}
-                      <Text style={{ color: theme.colors.active, fontSize:13 }}>
+                      <Text style={{ color: '#007BFA', fontSize:13 }}>
                         {guide.reviewAvg}
                       </Text>
-                      <Text style={{ marginLeft: 8, color: theme.colors.caption, fontSize:13 }}>
+                      <Text style={{ marginLeft: 8, color: '#BCCCD4', fontSize:13 }}>
                         ({guide.reviewCount} reviews)
                       </Text>
                     </View>
@@ -186,7 +179,7 @@ class GuideInfo extends Component {
               <View
                 style={styles.guideDetails2Item}
               >
-                <Icon.Ionicons name="ios-chatbubbles" size={17} />
+                <Ionicons name="ios-chatbubbles" size={17} />
                 <Text style={{ marginLeft: 4 }}>{this.renderLanguages(guide.guideLanguageList)}</Text>
               </View>
             </View>
@@ -225,8 +218,8 @@ const styles = StyleSheet.create({
   },
   header: {
     // backgroundColor: 'transparent',
-    paddingHorizontal: theme.sizes.padding,
-    paddingTop: theme.sizes.padding,
+    paddingHorizontal: 36,
+    paddingTop: 36,
     justifyContent: "space-between",
     alignItems: "center",
     position: "absolute",
@@ -235,34 +228,29 @@ const styles = StyleSheet.create({
     right: 0
   },
   back: {
-    width: theme.sizes.base * 3,
-    height: theme.sizes.base * 3,
+    width: 16 * 3,
+    height: 16 * 3,
     justifyContent: "center",
     alignItems: "flex-start"
   },
-  content: {
-    // backgroundColor: theme.colors.active,
-    // borderTopLeftRadius: theme.sizes.border,
-    // borderTopRightRadius: theme.sizes.border,
-  },
   contentHeader: {
     backgroundColor: "transparent",
-    padding: theme.sizes.padding,
-    backgroundColor: theme.colors.white,
-    borderTopLeftRadius: theme.sizes.radius,
-    borderTopRightRadius: theme.sizes.radius,
-    marginTop: -theme.sizes.padding / 2
+    padding: 36,
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    marginTop: -36 / 2
   },
   avatar: {
     position: "absolute",
-    top: -theme.sizes.margin,
-    right: theme.sizes.margin,
-    width: theme.sizes.padding * 2,
-    height: theme.sizes.padding * 2,
-    borderRadius: theme.sizes.padding
+    top: -36,
+    right: 36,
+    width: 36 * 2,
+    height: 36 * 2,
+    borderRadius: 36
   },
   shadow: {
-    shadowColor: theme.colors.black,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 6
@@ -283,16 +271,16 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 6,
-    backgroundColor: theme.colors.gray
+    backgroundColor: '#DCE0E9'
   },
   title: {
-    fontSize: theme.sizes.font * 2,
+    fontSize: 14 * 2,
     fontWeight: "bold"
   },
   description: {
-    fontSize: theme.sizes.font * 1.2,
-    lineHeight: theme.sizes.font * 2,
-    color: theme.colors.caption
+    fontSize: 14 * 1.2,
+    lineHeight: 14 * 2,
+    color: '#BCCCD4'
   },
   container: {
     flex: 1,

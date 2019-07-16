@@ -5,7 +5,7 @@ import { setDestination } from "../modules/entities";
 import { setDestinations } from '../modules/destinations';
 import { setLoading } from '../modules/loading';
 import { StyleSheet } from 'react-native';
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Ionicons from "react-native-ionicons";
 import Api from "../api/Api";
 
 class DestinationPicker extends Component {

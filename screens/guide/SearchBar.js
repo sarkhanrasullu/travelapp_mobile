@@ -9,13 +9,13 @@ import {
   Input,
   Item,
 } from "native-base";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ModalCalendar from "../../components/ModalCalendar";
 import { setGender, setGuides } from "../../modules/guides";
 import {setDate, setDestination, resetGuideAndDriver} from '../../modules/entities';
 import Api from '../../api/Api';
 import CommonUtil from '../../api/CommonUtil';
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import DestinationPicker from "../../components/DestinationPicker";
 import LanguagePicker from "../../components/LanguagePicker";
 import { setLoading } from '../../modules/loading'

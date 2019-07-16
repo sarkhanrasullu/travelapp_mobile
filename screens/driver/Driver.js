@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, Dimensions } from 'react-native';
 import { Text, View } from 'native-base';
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import * as theme from '../../theme';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { withNavigation } from 'react-navigation';
 import Gallery from '../../components/Gallery';
 const { width } = Dimensions.get('window');
@@ -24,7 +23,7 @@ class Driver extends Component {
           name="star"
           key={`star-${index}`}
           size={9}
-          color={theme.colors[activeStar ? "active" : "gray"]}
+          color={activeStar ? "#007BFA" : "#DCE0E9"}
           style={{ marginRight: 4 }}
         />
       );
@@ -116,8 +115,8 @@ const styles = StyleSheet.create({
   },
   header: {
     // backgroundColor: 'transparent',
-    paddingHorizontal: theme.sizes.padding,
-    paddingTop: theme.sizes.padding,
+    paddingHorizontal: 36,
+    paddingTop: 36,
     justifyContent: 'space-between',
     alignItems: 'center',
     position: 'absolute',
@@ -126,31 +125,26 @@ const styles = StyleSheet.create({
     right: 0,
   },
   back: {
-    width: theme.sizes.base * 3,
-    height: theme.sizes.base * 3,
+    width: 16 * 3,
+    height: 16 * 3,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  content: {
-    // backgroundColor: theme.colors.active,
-    // borderTopLeftRadius: theme.sizes.border,
-    // borderTopRightRadius: theme.sizes.border,
-  },
   contentHeader: {
     backgroundColor: 'transparent',
-    padding: theme.sizes.padding,
-    backgroundColor: theme.colors.white,
-    borderTopLeftRadius: theme.sizes.radius,
-    borderTopRightRadius: theme.sizes.radius,
-    marginTop: -theme.sizes.padding / 2,
+    padding: 36,
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    marginTop: -36 / 2,
   },
   avatar: {
     position: 'absolute',
     top: 5,
     left: 5,
-    width: theme.sizes.padding * 2,
-    height: theme.sizes.padding * 2,
-    borderRadius: theme.sizes.padding,
+    width: 36 * 2,
+    height: 36 * 2,
+    borderRadius: 36,
     borderWidth:1,
     borderColor:"#FFFFFF70",
   },
@@ -162,14 +156,14 @@ const styles = StyleSheet.create({
     // left: 5,
     width: width,
     minHeight:30,
-    // height: theme.sizes.padding * 2,
+    // height: 36 * 2,
     flex:1,
     flexDirection:"row",
     borderRadius: 0,
     // backgroundColor: '#FFFFFF70',
   },
   shadow: { 
-    shadowColor: theme.colors.black,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 6,
@@ -190,15 +184,15 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 6,
-    backgroundColor: theme.colors.gray,
+    backgroundColor: '#DCE0E9',
   },
   title: {
-    fontSize: theme.sizes.font * 2,
+    fontSize: 14 * 2,
     fontWeight: 'bold'
   },
   description: {
-    fontSize: theme.sizes.font * 1.2,
-    lineHeight: theme.sizes.font * 2,
-    color: theme.colors.caption
+    fontSize: 14 * 1.2,
+    lineHeight: 14 * 2,
+    color: '#BCCCD4'
   }
 });

@@ -7,8 +7,7 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native';
-import { Ionicons, FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
-import * as theme from '../../theme';
+import { Ionicons, FontAwesome } from 'react-native-vector-icons';
 import { withNavigation } from 'react-navigation';
 const { width, height } = Dimensions.get('screen');
 
@@ -23,7 +22,7 @@ class Guide extends React.Component {
           name="star"
           key={`star-${index}`}
           size={9}
-          color={theme.colors[activeStar ? "active" : "gray"]}
+          color={activeStar ? "#007BFA" : "#DCE0E9"}
           style={{ marginRight: 4 }}
         />
       );
