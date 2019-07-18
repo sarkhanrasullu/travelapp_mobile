@@ -420,25 +420,17 @@ export default class Api {
     fetch(Settings.ip + '/galleries', Api.GET_HEADER(false))
     .then((response) => response.json())
         .then((responseJson) => {
-          component.setState({ images:responseJson._embedded.galleries});
-          component.result = component.renderResult();
-          component.setState({isLoading: false});
+          component.setState({isLoading: false, images:responseJson._embedded.galleries});
         })
         .catch((error) => {
-          //console.error(error);
+          console.log(error);
         });
   }
 
   static loadLanguages = (component, spinner = true)=>{
     const props = component.props;
     if(spinner===true) props.setLoading(true);
-    fetch(Settings.ip+'/languages', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => response.json())
+    fetch(Settings.ip+'/languages', Api.GET_HEADER(false)).then((response) => response.json())
         .then((responseJson) => {
           props.setLanguages(responseJson._embedded.languages);
           if(spinner===true) props.setLoading(false);
@@ -479,13 +471,7 @@ export default class Api {
   static loadNationalities = (component, spinner = true, callback)=>{
     const props = component.props;
     if(spinner===true) props.setLoading(true);
-    fetch(Settings.ip+'/nationalities', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => response.json())
+    fetch(Settings.ip+'/nationalities', Api.GET_HEADER(false)).then((response) => response.json())
         .then((responseJson) => { 
           props.setNationalities(responseJson._embedded.nationalities);
           if(spinner===true) props.setLoading(false);

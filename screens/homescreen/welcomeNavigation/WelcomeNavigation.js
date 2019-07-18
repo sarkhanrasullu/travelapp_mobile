@@ -30,10 +30,10 @@ class WelcomeNavigation extends Component {
                     images={[images.image4]}  />
                 </ViewRow>
                 <ViewRow>
-                    <ThumbnailText fontSize={10} width={80} height={80} text={"5. Pay by cash"} 
-                    images={[images.image5]}  />
-                     <ThumbnailText fontSize={10} width={80} height={80} text={"6. You are DONE!"} 
+                     <ThumbnailText fontSize={10} width={80} height={80} text={"5. Invoice"} 
                     images={[images.image6]}  />
+                    <ThumbnailText fontSize={10} width={80} height={80} text={"6. Pay by cash"} 
+                    images={[images.image5]}  />
                 </ViewRow>
                         
                 <UIButton onPress={() => {

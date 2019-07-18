@@ -25,7 +25,7 @@ export default class MyImagePicker extends Component {
       base64: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     };
-    let result = await Expo.ImagePicker.launchImageLibraryAsync(options);
+    let result = await ImagePicker.launchImageLibraryAsync(options);
     if (!result.cancelled) {
       stateUtil.handleFieldChange(this, result.base64)
     }

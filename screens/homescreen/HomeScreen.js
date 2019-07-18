@@ -25,18 +25,12 @@ class HomeScreen extends React.Component {
     images:[]
   }
 
-  result = null;
-
-  render(){
-    return this.result;
-  }
-
   componentWillMount() {
     Api.loadDestinations(this, false);
     Api.loadGalleries(this, false);
   }
 
-  renderResult() {
+  render() {
     const galleryHeight = 220;
     return ( 
       <Container > 

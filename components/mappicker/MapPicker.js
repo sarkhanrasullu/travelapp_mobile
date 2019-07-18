@@ -29,27 +29,11 @@ class MapPicker extends Component {
           longitude: 49.87168582165617,
           longitudeDelta: 0.39252751707090283,
         }})
-      }
-      // else{
-      //   console.log('navigator')
         navigator.geolocation.getCurrentPosition((position) => {
           this.setState({initialCoords: position.coords});
           this.updateMapData();
-      //     console.log(Object.keys(position.coords));
-      //     this.setState({
-      //       initialCoords: position.coords,
-            
-      //     //   {"longitude":47.71934755154428,
-      //     //   "latitude":40.13557906918777,
-      //     //   "latitudeDelta":3.4498359410859436,
-      //     //   "longitudeDelta":4.351445943768681
-      //     // }
-             
-      //     });
-
-      //     this.updateMapData();
         });
-      // } 
+      }
   } 
 
   onDragEnd = (event)=>{ 

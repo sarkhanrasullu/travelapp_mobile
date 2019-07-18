@@ -7,7 +7,7 @@ import { setDestination } from '../modules/entities';
 import { withNavigation } from "react-navigation";
 const { width } = Dimensions.get("window");
 const buttonsContainerWidth = width;
-const buttonContainerWidth = buttonsContainerWidth * 0.33;
+const buttonContainerWidth = buttonsContainerWidth * 0.49;
 class BookButtonsContainer extends Component {
 
   handleDriver=()=>{
@@ -72,7 +72,7 @@ class BookButtonsContainer extends Component {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
           style={{ width: buttonContainerWidth }}
           onPress={this.handleDriver}
         >
@@ -105,7 +105,7 @@ class BookButtonsContainer extends Component {
               GET DRIVER+GEUIDE
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

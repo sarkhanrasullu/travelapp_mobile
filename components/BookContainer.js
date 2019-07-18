@@ -11,9 +11,20 @@ class BookContainer extends Component {
       const {selectedDestination} = this.props;
       return entity && entity.price1? entity.price1:0;
     }
+
+    select = (entity, type)=>{
+      this.props.select(entity, "SET_"+type);
+      
+      let screen = "GuideList";
+
+      if(type==="GUIDE"){
+        screen = "BookSummary";
+      }
+      this.props.navigation.navigate(screen);
+    }
     render() {
        const {entity, type} = this.props;
-        return ( 
+        return (  
           <Footer style={styles.containerVertical}>
               <View style={styles.container}  >  
                 <View style={styles.priceItem}>
@@ -21,7 +32,10 @@ class BookContainer extends Component {
                         <Text style={styles.priceItemText} >{this.getPrice(entity)}$</Text>
                 </View>
                 <View style={styles.buttonWrapper}>
-                    <Button style={styles.submitButton} onPress={()=>{this.props.select(entity, "SET_"+type)}}>
+                    <Button style={styles.submitButton} onPress={()=>{
+                        this.select(entity, type);
+                      }
+                    }>
                       <Text style={styles.submitButtonText}>SELECT</Text>
                     </Button> 
                 </View>
@@ -44,7 +58,7 @@ const moduleActions = {
   select
 }
 
-export default connect(moduleState, moduleActions)(BookContainer);
+export default connect(moduleState, moduleActions)(withNavigation(BookContainer));
 
 const styles = StyleSheet.create({
     buttonWrapper:{
