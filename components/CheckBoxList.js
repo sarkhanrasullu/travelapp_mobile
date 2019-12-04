@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { View, ListItem, CheckBox, Body, Text } from 'native-base';
-import {StyleSheet} from 'react-native'
+import { Body, CheckBox, ListItem, Text, View } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 
 export default class CheckBoxList extends Component {
 
@@ -11,13 +11,16 @@ export default class CheckBoxList extends Component {
     handleOnPress = (item)=>{
         const {onChecked, component} = this.props;
         item.checked = !item.checked;
+        // console.log(item);
         component.setState({});
+        this.setState({});
         if(onChecked) onChecked(item);
     }
 
     render() {
         const {items} = {...this.props};
-        const listItems = items.map((item, index)=>{
+        // console.log(items); 
+        const listItems = items.map((item, index)=>{ 
             return (
                 <ListItem style={styles.item} key={index} onPress={()=>this.handleOnPress(item)}>
                     <CheckBox checked={item.checked} onPress={()=>this.handleOnPress(item)} />

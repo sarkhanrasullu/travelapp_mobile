@@ -1,9 +1,9 @@
+import { AppLoading, Font } from 'expo';
 import React from 'react';
-import { Provider } from 'react-redux';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import { Provider } from 'react-redux';
 import store from './modules';
+import AppNavigator from './navigation/AppNavigator';
 
 class App extends React.Component {
   state = {
@@ -36,8 +36,8 @@ class App extends React.Component {
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         // ...Icon.Ionicons.font,
-        // Roboto: require("native-base/Fonts/Roboto.ttf"),
-        // Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
         Ionicons: require("react-native-ionicons/fonts/Ionicons.ttf"),
         // FontAwesome: require('react-native-vector-icons/Fonts/FontAwesome.ttf')
       }),

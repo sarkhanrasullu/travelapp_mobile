@@ -1,6 +1,6 @@
-import Settings from '../constants/Settings'
+import { encode as btoa } from 'base-64';
+import Settings from '../constants/Settings';
 import CommonUtil from './CommonUtil';
-import { encode as btoa} from 'base-64'
 
 export default class Api {
   static token = null;
@@ -120,6 +120,7 @@ export default class Api {
     fetch(`${Settings.ip}/private/drivers/edit`, Api.POST_HEADER(driver))
       .then(response => response.json())
       .then(responseJson => { 
+        // console.log(responseJson)
         Api.loadDriver(component);
       })
       .catch(error => {
@@ -369,12 +370,12 @@ export default class Api {
        }
 
   static loadCarUtilities = (component)=>{
-    ////////console.log('load car utilities');
     fetch(`${Settings.ip}/carUtilities`, Api.GET_HEADER())
         .then((response) => response.json())
         .then((responseJson) => {
           const list = responseJson._embedded.carUtilities;
           if(list){
+            // console.log(list);
             component.setState({carUtilities: list});
           }
           Api.loadDriver(component,()=>component.props.setLoading(false));
@@ -390,6 +391,7 @@ export default class Api {
     fetch(Settings.ip+'/public/drivers?date='+CommonUtil.formatDateByDash(selectedDate), Api.GET_HEADER(false))
     .then((response) => response.json())
     .then((responseJson) => {
+      // console.log(responseJson.result);
           props.setDrivers(responseJson.result);
           props.setLoading(false);
     }).catch((error) => {
@@ -450,10 +452,12 @@ export default class Api {
               Api.loadModels(component, driver.carList[0].modelId.brandId.id);
           }else{
             props.setModels([]);
+            props.setLoading(false);
           }
           
         })
         .catch((error) => {
+          props.setLoading(false);
         });
   }
 
@@ -463,8 +467,10 @@ export default class Api {
     .then((response) => response.json())
         .then((responseJson) => {
           props.setModels(responseJson.result);
+          props.setLoading(false);
         })
         .catch((error) => {
+          props.setLoading(false);
         });
   }
 
@@ -496,6 +502,7 @@ export default class Api {
       fetch(url, Api.GET_HEADER(false))
       .then((response) => response.json())
           .then((responseJson) => {
+            console.log(responseJson.result)
             props.setGuides(responseJson.result);
             props.setLoading(false);
           })
@@ -582,7 +589,7 @@ export default class Api {
     const props = component.props;
     props.setLoading(true);
     const url = Settings.ip+'/private/trips?type='+type;
-    console.log(url);
+    // console.log(url);
     fetch(url, Api.GET_HEADER())
     .then((response) => response.json())
     .then((responseJson) => {

@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity
-} from 'react-native';
-import { Ionicons, FontAwesome } from 'react-native-vector-icons';
+import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FontAwesome, Ionicons } from 'react-native-vector-icons';
 import { withNavigation } from 'react-navigation';
 const { width, height } = Dimensions.get('screen');
 
@@ -46,7 +39,7 @@ class Guide extends React.Component {
             <ImageBackground
               style={styles.guideImage}
               imageStyle={styles.guideImage}
-              source={{ uri: guide.userId.thumbnail?`data:image/jpg;base64,${guide.userId.thumbnail}`:undefined }}
+              source={{ uri: guide.userId.thumbnail?guide.userId.thumbnail:undefined }}
             />
 
             <View style={styles.guideDetails}>

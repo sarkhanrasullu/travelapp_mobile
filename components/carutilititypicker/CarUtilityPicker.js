@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import CheckBoxList from "./../CheckBoxList";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Api from '../../api/Api';
-import {setLoading} from '../../modules/loading';
-import {connect} from 'react-redux';
+import { setLoading } from '../../modules/loading';
+import CheckBoxList from "./../CheckBoxList";
 
 class CarUtilityPicker extends Component {
      
@@ -14,9 +14,9 @@ class CarUtilityPicker extends Component {
     render() {
         const {component} = this.props;
         return (
-            <CheckBoxList 
-            items={component.state.carUtilities} 
-            component={component}
+            <CheckBoxList
+                items={component.state.carUtilities} 
+                component={component}
             />
         )
     }

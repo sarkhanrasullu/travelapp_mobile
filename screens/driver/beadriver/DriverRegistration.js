@@ -1,18 +1,18 @@
+import { Container, Content, View } from "native-base";
 import React, { Component } from "react";
-import { StyleSheet, Dimensions } from "react-native";
-import { View, Container, Content } from "native-base";
-import { setLoggedInUser } from "../../../modules/auth";
-import { setLoading } from "../../../modules/loading";
-import {setBrands, setModels} from '../../../modules/entities';
-import { connect } from "react-redux";
+import { Dimensions, StyleSheet } from "react-native";
 import { withNavigation } from "react-navigation";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import FormSection from "../../../components/FormSection";
-import ProfileHeader from "../../settings/ProfileHeader";
+import { connect } from "react-redux";
 import Api from "../../../api/Api";
 import DynamicForm from "../../../components/dynamicform/DynamicForm";
+import FormSection from "../../../components/FormSection";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import ReviewWarning from "../../../components/reviewwarning/ReviewWarning";
 import SaveOrRegisterButton from "../../../components/saveorregisterbutton/SaveOrRegisterButton";
+import { setLoggedInUser } from "../../../modules/auth";
+import { setBrands, setModels } from '../../../modules/entities';
+import { setLoading } from "../../../modules/loading";
+import ProfileHeader from "../../settings/ProfileHeader";
 const window = Dimensions.get("window");
 const contentWidth = window.width * 0.8;
 
@@ -77,6 +77,17 @@ class DriverRegistration extends Component {
                     ]
                 },
                 {
+                  title: "",
+                  items: [
+                    {
+                      name: "genderId.id",
+                      optional:false,
+                      label: "Select",
+                      type: "genderpicker"
+                    }
+                  ]
+              },
+                {
                     title: "About Your Car",
                     items: [
                       {
@@ -130,7 +141,7 @@ const moduleActions = {
   setLoggedInUser,
   setLoading,
   setBrands,
-    setModels,
+  setModels,
 };
 
 export default connect(

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import {StyleSheet} from 'react-native'
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import {select} from '../../modules/entities';
+import { connect } from 'react-redux';
+import { select } from '../../modules/entities';
 import ViewRow from '../grid/ViewRow';
-import ProgressNavigationItem from './ProgressNavigationItem';
 import images from './../../assets/icons/base64images';
+import ProgressNavigationItem from './ProgressNavigationItem';
 
 class ProgressNavigation extends Component {
 
@@ -54,11 +54,11 @@ class ProgressNavigation extends Component {
         // 
         const {selectedDriver, selectedGuide, pageIndex} = this.props;
         const selectedDriverText = selectedDriver? selectedDriver.userId.name+" "+selectedDriver.userId.surname:"SELECT DRIVER";
-        const selectedDriverImage = selectedDriver? `data:image/jpg;base64,${selectedDriver.userId.thumbnail}`: images.select_person;
+        const selectedDriverImage = selectedDriver? selectedDriver.userId.thumbnail: images.select_person;
         const selectedDriverSubmitText = selectedDriver?"RESET":"SKIP";
         const selectedDriverSubmitColor = selectedDriver?"red":"#ff8b0f";
 
-        const selectedGuideImage = selectedGuide? `data:image/jpg;base64,${selectedGuide.userId.thumbnail}`: images.select_person;
+        const selectedGuideImage = selectedGuide? selectedGuide.userId.thumbnail: images.select_person;
         const selectedGuideText = selectedGuide? selectedGuide.userId.name+" "+selectedGuide.userId.surname:"SELECT GUIDE";
         const selectedGuideSubmitText = selectedGuide?"RESET":"SKIP";
         const selectedGuideSubmitColor = selectedGuide?"red":"#ff8b0f";
