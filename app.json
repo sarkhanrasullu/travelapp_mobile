@@ -27,7 +27,13 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.tripesco.app"
+      "package": "com.tripesco.app",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD1EJjezI-hPT9tb7TgL-b2Px-JKZ16u8I"
+        }
+      }
     }
+
   }
 }

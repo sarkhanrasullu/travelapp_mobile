@@ -1,6 +1,6 @@
 export default class Settings {
     static ip = "https://tripescorestapi.herokuapp.com/api";
-    //static ip = "http://localhost/api";
+    // static ip = "http://localhost/api";
 
-    // static ip = "http://192.168.0.172/api";
+    // static ip = "http://192.168.0.171/api";
 };

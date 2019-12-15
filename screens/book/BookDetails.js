@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { StyleSheet, Dimensions, ScrollView } from "react-native";
 import { View } from "native-base";
+import React, { Component } from "react";
+import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import Ionicons from "react-native-ionicons";
-import { connect } from 'react-redux';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { connect } from 'react-redux';
 import CommonUtil from "../../api/CommonUtil";
-import Label from '../../components/label/Label';
 import DynamicForm from "../../components/dynamicform/DynamicForm";
+import Label from '../../components/label/Label';
 import Section from "../../components/section/Section";
 
 const { width } = Dimensions.get("window");

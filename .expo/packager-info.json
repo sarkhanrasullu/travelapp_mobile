@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://nh-chx.sarkhanrasullu.travelapp-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.nh-chx.sarkhanrasullu.travelapp-mobile.exp.direct",
-  "ngrokPid": 4203
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

@@ -313,10 +313,10 @@ export default class Api {
                 if(driver.busyDays){
                     const tempBusyDays = driver.busyDays.split(";");
                     tempBusyDays.forEach((bd)=>{
-                      console.log(bd)
+                      // console.log(bd)
                       if(bd.trim().length===0) return;
                       const datestr = new Date(bd.trim()).toString().replace(" (+04)","").replace("04:00:00","00:00:00");
-                      console.log(datestr);
+                      // console.log(datestr);
                       busyDays.push(datestr);
                     })
                 }
@@ -502,7 +502,7 @@ export default class Api {
       fetch(url, Api.GET_HEADER(false))
       .then((response) => response.json())
           .then((responseJson) => {
-            console.log(responseJson.result)
+            //console.log(responseJson.result)
             props.setGuides(responseJson.result);
             props.setLoading(false);
           })

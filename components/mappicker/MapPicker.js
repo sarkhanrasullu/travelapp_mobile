@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import * as stateUtil from '../../api/StateUtil'
 import { Text, View } from "native-base";
+import React, { Component } from "react";
+import { Dimensions, StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
+import * as stateUtil from '../../api/StateUtil';
 import { setLoading } from '../../modules/loading';
 
 const width = Dimensions.get("window").width*0.90;
